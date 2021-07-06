@@ -9,6 +9,8 @@ describe('VeiculoService', () => {
     });
     const res = await VeiculoService.listar();
 
+    console.log(res);
+
     expect(res).toBeInstanceOf(Array);
   });
 });
