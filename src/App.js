@@ -5,8 +5,10 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+
 import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarcas';
+import Rodape from './components/Rodape';
 
 const muiTheme = createMuiTheme({
   palette: {
@@ -56,6 +58,7 @@ function App() {
               </Route>
             </Switch>
           </Container>
+          <Rodape />
         </main>
       </div>
     </ThemeProvider>
