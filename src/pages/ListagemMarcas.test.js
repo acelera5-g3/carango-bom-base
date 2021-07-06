@@ -19,8 +19,35 @@ describe('ListagemMarcas', () => {
       json: jest.fn().mockResolvedValue([{ id: 74, nome: 'CHEVROLET' }]),
     });
     render(<ListagemMarcas />);
+    expect(await screen.findByText('CHEVROLET')).toBeInTheDocument();
+  });
+
+  it('Deve excluir uma marca', async () => {
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue([
+        { id: 74, nome: 'CHEVROLET' },
+        { id: 12, nome: 'FIAT' },
+      ]),
+    });
+    render(<ListagemMarcas />);
+    const fiatText = await screen.findByText('FIAT');
+    fireEvent.click(fiatText);
     const botaoExcluir = screen.getByTestId('botao-excluir');
     fireEvent.click(botaoExcluir);
-    expect(await screen.findByText('CHEVROLET')).toBeInTheDocument();
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue([{ id: 74, nome: 'CHEVROLET' }]),
+    });
+    expect(await screen.findByText('FIAT')).not.toBeInTheDocument();
+  });
+
+  it('Deve alterar a marca', async () => {
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue([{ id: 74, nome: 'CHEVROLET' }]),
+    });
+    render(<ListagemMarcas />);
+    const brandRow = await screen.findByText('CHEVROLET');
+    fireEvent.click(brandRow);
+    const botaoAlterar = screen.getByTestId('botao-alterar');
+    expect(botaoAlterar).toBeInTheDocument();
   });
 });

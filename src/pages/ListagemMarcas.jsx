@@ -30,7 +30,6 @@ const ListagemMarcas = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  console.log(marcas);
   function alterar() {
     history.push(`/alteracao-marca/${marcaSelecionada.id}`);
   }
@@ -73,6 +72,7 @@ const ListagemMarcas = () => {
                     className={classes.actions}
                     variant="contained"
                     color="primary"
+                    data-testid="botao-alterar"
                     disabled={!marcaSelecionada}
                     onClick={() => alterar()}>
                     Alterar
