@@ -31,6 +31,7 @@ const ListagemMarcas = () => {
   const history = useHistory();
 
   function alterar() {
+    console.log('felipe cara cool', history);
     history.push(`/alteracao-marca/${marcaSelecionada.id}`);
   }
 
