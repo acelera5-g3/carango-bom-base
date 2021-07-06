@@ -1,0 +1,17 @@
+{
+  "git.ignoreLimitWarning": true,
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 15,
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "html.format.indentHandlebars": true,
+  "html.format.maxPreserveNewLines": 0,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "react"
+  ]
+}
