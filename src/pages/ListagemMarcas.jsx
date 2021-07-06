@@ -24,12 +24,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ListagemMarcas() {
+const ListagemMarcas = () => {
   const [marcas, setMarcas] = useState([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState();
   const classes = useStyles();
   const history = useHistory();
 
+  console.log(marcas);
   function alterar() {
     history.push(`/alteracao-marca/${marcaSelecionada.id}`);
   }
@@ -52,7 +53,8 @@ function ListagemMarcas() {
   }
 
   return (
-        <div style={{ height: 300, width: '100%' }}>
+        <div style={{ height: 300, width: '100%' }} data-testid="data-grid"
+        >
             <DataGrid rows={marcas} columns={colunas}
                 onRowSelected={(gridSelection) => setMarcaSelecionada(gridSelection.data)}
             />
@@ -63,6 +65,7 @@ function ListagemMarcas() {
                     variant="contained"
                     color="secondary"
                     disabled={!marcaSelecionada}
+                    data-testid="botao-excluir"
                     onClick={() => excluir()}>
                     Excluir
                 </Button>
@@ -81,6 +84,6 @@ function ListagemMarcas() {
             </Fab>
         </div>
   );
-}
+};
 
 export default ListagemMarcas;

@@ -1,67 +1,64 @@
 {
-    "env": {
-        "es2020": true,
-        "node": true,
-        "browser": true,
-        "jest/globals": true
-    },
-    "extends": [
-        "airbnb-base",
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:jest/recommended",
-        "plugin:jest/style"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 12,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "plugins": [
-        "react",
-        "jest"
-    ],
-    "rules": {
-        "global-require": "off",
-        "import/prefer-default-export": "off",
-        "import/extensions": "off",
-        "no-use-before-define": "off",
-        "import/no-unresolved": "off",
-        "eslint-disable import/no-dynamic-require": 0,
-        "max-len": [
-            "error",
-            {
-                "code": 150
-            }
-        ],
-        "no-console": "off",
-        "no-unused-expressions": 0,
-        "no-shadow": 0,
-        "default-case": 0,
-        "brace-style": [
-            "error",
-            "stroustrup",
-            {
-                "allowSingleLine": true
-            }
-        ],
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": true
-            }
-        ],
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "error",
-        "jest/no-identical-title": "error",
-        "jest/prefer-to-have-length": "warn",
-        "jest/valid-expect": "error"
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
+  "env": {
+    "es2020": true,
+    "node": true,
+    "browser": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "plugins": ["jest", "react"],
+  "rules": {
+    "global-require": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "no-use-before-define": "off",
+    "import/no-unresolved": "off",
+    "eslint-disable import/no-dynamic-require": 0,
+    "max-len": [
+      "error",
+      {
+        "code": 150
+      }
+    ],
+    "no-console": "off",
+    "no-unused-expressions": 0,
+    "no-shadow": 0,
+    "default-case": 0,
+    "brace-style": [
+      "error",
+      "stroustrup",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
