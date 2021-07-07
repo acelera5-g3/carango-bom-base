@@ -2,7 +2,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import useErros from '../hooks/useErros';
-import MarcaService from '../services/MarcaService';
+import MarcaService from '../services/Marca/MarcaService';
 
 function CadastroMarca() {
   const [marca, setMarca] = useState('');

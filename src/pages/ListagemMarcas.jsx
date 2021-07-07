@@ -3,7 +3,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import MarcaService from '../services/MarcaService';
+import MarcaService from '../services/Marca/MarcaService';
 
 const colunas = [
   { field: 'nome', headerName: 'Marca', width: 200 },
@@ -24,13 +24,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ListagemMarcas() {
+const ListagemMarcas = () => {
   const [marcas, setMarcas] = useState([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState();
   const classes = useStyles();
   const history = useHistory();
 
   function alterar() {
+    console.log('felipe cara cool', history);
     history.push(`/alteracao-marca/${marcaSelecionada.id}`);
   }
 
@@ -52,7 +53,8 @@ function ListagemMarcas() {
   }
 
   return (
-        <div style={{ height: 300, width: '100%' }}>
+        <div style={{ height: 300, width: '100%' }} data-testid="data-grid"
+        >
             <DataGrid rows={marcas} columns={colunas}
                 onRowSelected={(gridSelection) => setMarcaSelecionada(gridSelection.data)}
             />
@@ -63,13 +65,15 @@ function ListagemMarcas() {
                     variant="contained"
                     color="secondary"
                     disabled={!marcaSelecionada}
+                    data-testid="botao-excluir"
                     onClick={() => excluir()}>
                     Excluir
-                        </Button>
+                </Button>
                 <Button
                     className={classes.actions}
                     variant="contained"
                     color="primary"
+                    data-testid="botao-alterar"
                     disabled={!marcaSelecionada}
                     onClick={() => alterar()}>
                     Alterar
@@ -81,6 +85,6 @@ function ListagemMarcas() {
             </Fab>
         </div>
   );
-}
+};
 
 export default ListagemMarcas;
