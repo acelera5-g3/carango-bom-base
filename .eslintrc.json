@@ -21,7 +21,8 @@
     },
     "plugins": [
         "react",
-        "jest"
+        "jest",
+        "testing-library"
     ],
     "rules": {
         "global-require": "off",
