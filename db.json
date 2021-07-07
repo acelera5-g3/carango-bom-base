@@ -1,0 +1,24 @@
+{
+  "marcas": [
+    {
+      "id": 74,
+      "nome": "CHEVROLET A MELHOR"
+    },
+    {
+      "id": 64,
+      "nome": "PEAGEOT 7627"
+    },
+    {
+      "nome": "Honda",
+      "id": 77
+    },
+    {
+      "nome": "Honda 90",
+      "id": 79
+    },
+    {
+      "nome": "PEUGEOUT",
+      "id": 80
+    }
+  ]
+}

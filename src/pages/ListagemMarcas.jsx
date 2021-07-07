@@ -1,26 +1,24 @@
-import { Button, Fab, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import AddIcon from '@material-ui/icons/Add';
+import blue from '@material-ui/core/colors/blue';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import MarcaService from '../services/Marca/MarcaService';
 
-const colunas = [
-  { field: 'nome', headerName: 'Marca', width: 200 },
-];
+const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
 const useStyles = makeStyles(() => ({
-  fab: {
-    position: 'absolute',
-    bottom: '100px',
-    right: '100px',
-  },
   actionsToolbar: {
     float: 'right',
   },
   actions: {
     top: '10px',
     marginLeft: '10px',
+  },
+  dataTable: {
+    MuiDataGridColCellWrapper: {
+      background: blue[900],
+    },
   },
 }));
 
@@ -36,54 +34,65 @@ const ListagemMarcas = () => {
   }
 
   function excluir() {
-    MarcaService.excluir(marcaSelecionada)
-      .then(() => {
-        setMarcaSelecionada(null);
-        carregarMarcas();
-      });
+    MarcaService.excluir(marcaSelecionada).then(() => {
+      setMarcaSelecionada(null);
+      carregarMarcas();
+    });
   }
 
   // TODO: Avaliar remover disable na próxima linha
   // eslint-disable-next-line
-    useEffect(() => carregarMarcas(), []);
+  useEffect(() => carregarMarcas(), []);
 
   function carregarMarcas() {
-    MarcaService.listar()
-      .then((dados) => setMarcas(dados));
+    MarcaService.listar().then((dados) => setMarcas(dados));
   }
 
   return (
-        <div style={{ height: 300, width: '100%' }} data-testid="data-grid"
+    <div style={{ width: '100%' }} data-testid="data-grid">
+      <DataGrid
+        className={classes.dataTable}
+        autoHeight={true}
+        rows={marcas}
+        columns={colunas}
+        onRowSelected={(gridSelection) =>
+          setMarcaSelecionada(gridSelection.data)
+        }
+      />
+
+      <div className={classes.actionsToolbar}>
+        <Button
+          className={classes.actions}
+          variant="contained"
+          color="primary"
+          data-testid="botao-incluir"
+          // disabled={!marcaSelecionada}
+          onClick={() => history.push('/cadastro-marca')}
         >
-            <DataGrid rows={marcas} columns={colunas}
-                onRowSelected={(gridSelection) => setMarcaSelecionada(gridSelection.data)}
-            />
-
-            <div className={classes.actionsToolbar}>
-                <Button
-                    className={classes.actions}
-                    variant="contained"
-                    color="secondary"
-                    disabled={!marcaSelecionada}
-                    data-testid="botao-excluir"
-                    onClick={() => excluir()}>
-                    Excluir
-                </Button>
-                <Button
-                    className={classes.actions}
-                    variant="contained"
-                    color="primary"
-                    data-testid="botao-alterar"
-                    disabled={!marcaSelecionada}
-                    onClick={() => alterar()}>
-                    Alterar
-                </Button>
-            </div>
-
-            <Fab color="primary" aria-label="add" className={classes.fab} onClick={() => history.push('/cadastro-marca')}>
-                <AddIcon />
-            </Fab>
-        </div>
+          Incluir
+        </Button>
+        <Button
+          className={classes.actions}
+          variant="contained"
+          color="primary"
+          data-testid="botao-alterar"
+          disabled={!marcaSelecionada}
+          onClick={() => alterar()}
+        >
+          Alterar
+        </Button>
+        <Button
+          className={classes.actions}
+          variant="contained"
+          color="secondary"
+          disabled={!marcaSelecionada}
+          data-testid="botao-excluir"
+          onClick={() => excluir()}
+        >
+          Excluir
+        </Button>
+      </div>
+    </div>
   );
 };
 

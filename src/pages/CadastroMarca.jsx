@@ -1,11 +1,22 @@
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, TextField } from '@material-ui/core';
+import { Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import useErros from '../hooks/useErros';
 import MarcaService from '../services/Marca/MarcaService';
 
+const useStyles = makeStyles(() => ({
+  title: {
+    fontSize: '2rem',
+    paddingBottom: '20px',
+  },
+  btnCancelar: {
+    marginRight: '10px',
+  },
+}));
+
 function CadastroMarca() {
   const [marca, setMarca] = useState('');
+  const classes = useStyles();
 
   const history = useHistory();
 
@@ -30,64 +41,71 @@ function CadastroMarca() {
   // TODO: Avaliar remover disable na próxima linha
   useEffect(() => {
     if (id) {
-      MarcaService.consultar(id)
-        .then((m) => setMarca(m.nome));
+      MarcaService.consultar(id).then((m) => setMarca(m.nome));
     }
-    }, [id]); // eslint-disable-line
+  }, [id]); // eslint-disable-line
 
   return (
-        <form onSubmit={(event) => {
+    <>
+      <Typography variant="h1" className={classes.title}>
+        {id ? 'Alterar Cadastro' : 'Cadastrar'}
+      </Typography>
+      <form
+        onSubmit={(event) => {
           event.preventDefault();
           if (possoEnviar()) {
             if (id) {
-              MarcaService.alterar({ id, nome: marca })
-                .then(() => {
-                  history.push('/');
-                });
-            }
-            else {
-              MarcaService.cadastrar({ nome: marca })
-                .then(() => {
-                  setMarca('');
-                  history.push('/');
-                });
+              MarcaService.alterar({ id, nome: marca }).then(() => {
+                history.push('/');
+              });
+              // eslint-disable-next-line brace-style
+            } else {
+              MarcaService.cadastrar({ nome: marca }).then(() => {
+                setMarca('');
+                history.push('/');
+              });
             }
           }
-        }}>
-            <TextField
-                value={marca}
-                onChange={(evt) => setMarca(evt.target.value)}
-                onBlur={validarCampos}
-                helperText={erros.marca.texto}
-                error={!erros.marca.valido}
-                name="marca"
-                id="marca"
-                label="Marca"
-                type="text"
-                variant="outlined"
-                fullWidth
-                required
-                margin="normal"
-                data-testid='inputMarca'
-            />
+        }}
+      >
+        <TextField
+          value={marca}
+          onChange={(evt) => setMarca(evt.target.value)}
+          onBlur={validarCampos}
+          helperText={erros.marca.texto}
+          error={!erros.marca.valido}
+          name="marca"
+          id="marca"
+          label="Marca"
+          type="text"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+          data-testid="inputMarca"
+        />
 
-            <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                data-testid='submitButton'
-                disabled={!possoEnviar()}>
-                {id ? 'Alterar' : 'Cadastrar'}
-            </Button>
+        <Button
+          className={classes.btnCancelar}
+          variant="contained"
+          color="secondary"
+          data-testid="cancelarButton"
+          onClick={cancelar}
+        >
+          Cancelar
+        </Button>
 
-            <Button
-                variant="contained"
-                color="secondary"
-                data-testid='cancelarButton'
-                onClick={cancelar}>
-                Cancelar
-            </Button>
-        </form>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          data-testid="submitButton"
+          disabled={!possoEnviar()}
+        >
+          {id ? 'Alterar' : 'Cadastrar'}
+        </Button>
+      </form>
+    </>
   );
 }
 
