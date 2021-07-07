@@ -8,35 +8,62 @@ import CadastroMarca from './CadastroMarca';
 import MarcaService from '../services/Marca/MarcaService';
 
 describe('CadastroMarca', () => {
-  describe('Cadastro de marca', () => {
-    let history;
-    beforeEach(() => {
-      history = createMemoryHistory();
-      const route = '/cadastro-marca';
-      history.push(route);
+  let history;
+  let pushSpy;
+  let route;
+  let path;
 
-      jest.mock('react-router-dom', () => ({
-        ...jest.requireActual('react-router-dom'),
-        useHistory: () => ({
-          push: jest.fn(),
-        }),
-      }));
+  const createInstance = async () => render(
+    <Router history={history}>
+      <Route path={path}>
+        <CadastroMarca />
+      </Route>
+    </Router>,
+  );
+
+  const submitEvent = async () => {
+    await createInstance();
+
+    await act(async () => {
+      const input = screen.getByTestId('inputMarca').querySelector('input');
+      fireEvent.change(input, { target: { value: 'Teste' } });
+      fireEvent.blur(input);
+      const submit = screen.getByTestId('submitButton');
+
+      fireEvent.click(submit);
     });
+  };
+
+  beforeEach(() => {
+    const resolved = { id: 1, nome: 'Teste' };
+    jest.spyOn(MarcaService, 'cadastrar').mockResolvedValue(() => resolved);
+    jest.spyOn(MarcaService, 'alterar').mockResolvedValue(() => resolved);
+    // jest.spyOn(MarcaService, 'consultar').mockResolvedValue(() => resolved);
+    history = createMemoryHistory();
+
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useHistory: () => ({
+        push: jest.fn(),
+      }),
+    }));
+  });
+
+  describe('Cadastro de marca', () => {
+    beforeEach(() => {
+      route = '/cadastro-marca';
+      path = '/cadastro-marca';
+      history.push(route);
+      pushSpy = jest.spyOn(history, 'push');
+    });
+
     it(('Deve instanciar o componente'), () => {
-      const { container } = render(
-        <Router history={history}>
-          <CadastroMarca />
-        </Router>,
-      );
-      expect(container).toBeDefined();
+      expect(createInstance()).toBeDefined();
     });
 
     it('Não pode habilitar botão de cadastro', () => {
-      render(
-        <Router history={history}>
-          <CadastroMarca />
-        </Router>,
-      );
+      createInstance();
+
       const input = screen.getByTestId('inputMarca').querySelector('input');
       fireEvent.change(input, { target: { value: 'aa' } });
       fireEvent.blur(input);
@@ -47,11 +74,8 @@ describe('CadastroMarca', () => {
     });
 
     it('Deve habilitar botão de cadastro', () => {
-      render(
-        <Router history={history}>
-          <CadastroMarca />
-        </Router>,
-      );
+      createInstance();
+
       const input = screen.getByTestId('inputMarca').querySelector('input');
       fireEvent.change(input, { target: { value: 'Teste' } });
       fireEvent.blur(input);
@@ -62,12 +86,8 @@ describe('CadastroMarca', () => {
     });
 
     it('Deve voltar a tela anterior', () => {
-      const pushSpy = jest.spyOn(history, 'push');
-      render(
-        <Router history={history}>
-          <CadastroMarca />
-        </Router>,
-      );
+      createInstance();
+
       const button = screen.getByTestId('cancelarButton');
       fireEvent.click(button);
 
@@ -75,75 +95,26 @@ describe('CadastroMarca', () => {
     });
 
     it('Deve enviar o form', async () => {
-      jest.spyOn(MarcaService, 'cadastrar').mockResolvedValue(() => ({ id: 1, nome: 'Teste' }));
-
-      const pushSpy = jest.spyOn(history, 'push');
-
-      render(
-          <Router history={history}>
-            <CadastroMarca />
-          </Router>,
-      );
-
-      const input = screen.getByTestId('inputMarca').querySelector('input');
-      await act(async () => {
-        fireEvent.change(input, { target: { value: 'Teste' } });
-        fireEvent.blur(input);
-        const submit = screen.getByTestId('submitButton');
-
-        fireEvent.click(submit);
-      });
+      await submitEvent();
       expect(pushSpy).toHaveBeenCalled();
     });
   });
 
   describe('Alteração de marca', () => {
-    let history;
     beforeEach(() => {
       history = createMemoryHistory();
-      const route = '/alteracao-marca/1';
+      route = '/alteracao-marca/1';
+      path = '/alteracao-marca/:id';
       history.push(route);
-
-      jest.mock('react-router-dom', () => ({
-        ...jest.requireActual('react-router-dom'),
-        useHistory: () => ({
-          push: jest.fn(),
-        }),
-      }));
+      pushSpy = jest.spyOn(history, 'push');
     });
 
-    it(('Deve instanciar o componente'), () => {
-      const { container } = render(
-        <Router history={history}>
-          <Route path='/alteracao-marca/:id'>
-            <CadastroMarca />
-          </Route>
-        </Router>,
-      );
-      expect(container).toBeDefined();
-    });
+    // it(('Deve instanciar o componente'), () => {
+    //   expect(createInstance()).toBeDefined();
+    // });
 
     it('Deve enviar o form', async () => {
-      jest.spyOn(MarcaService, 'alterar').mockResolvedValue(() => ({ id: 1, nome: 'Teste' }));
-
-      const pushSpy = jest.spyOn(history, 'push');
-
-      render(
-        <Router history={history}>
-          <Route path='/alteracao-marca/:id'>
-            <CadastroMarca />
-          </Route>
-      </Router>,
-      );
-
-      const input = screen.getByTestId('inputMarca').querySelector('input');
-      await act(async () => {
-        fireEvent.change(input, { target: { value: 'Teste' } });
-        fireEvent.blur(input);
-        const submit = screen.getByTestId('submitButton');
-
-        fireEvent.click(submit);
-      });
+      await submitEvent();
       expect(pushSpy).toHaveBeenCalled();
     });
   });
