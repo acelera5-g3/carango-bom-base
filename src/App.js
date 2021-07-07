@@ -9,6 +9,7 @@ import ListagemMarcas from './pages/ListagemMarcas';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import Rodape from './components/Rodape';
 import './App.css';
+import Login from "./pages/Login";
 
 const muiTheme = createMuiTheme(
   {
@@ -51,13 +52,16 @@ function App() {
             <Container component="article" maxWidth="md">
               <Switch>
                 <Route path="/cadastro-marca">
-                  <CadastroMarca></CadastroMarca>
+                  <CadastroMarca/>
                 </Route>
                 <Route path="/alteracao-marca/:id">
-                  <CadastroMarca></CadastroMarca>
+                  <CadastroMarca/>
+                </Route>
+                <Route path="/login">
+                  <Login />
                 </Route>
                 <Route path="/">
-                  <ListagemMarcas></ListagemMarcas>
+                  <ListagemMarcas/>
                 </Route>
               </Switch>
               <Rodape />
