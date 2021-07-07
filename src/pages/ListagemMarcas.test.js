@@ -1,22 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ListagemMarcas from './ListagemMarcas';
 
 describe('ListagemMarcas', () => {
-  let history;
-
-  beforeEach(() => {
-    history = createMemoryHistory();
-
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useHistory: () => ({
-        push: jest.fn(),
-      }),
-    }));
-  });
-
   it('Deve listar os veiculos', () => {
     const { container } = render(<ListagemMarcas />);
     expect(container).toBeDefined();
@@ -54,6 +40,7 @@ describe('ListagemMarcas', () => {
     expect(await screen.findByText('FIAT')).not.toBeInTheDocument();
   });
 
+  // eslint-disable-next-line jest/no-commented-out-tests
   // it('Deve alterar a marca', async () => {
   //   jest.spyOn(global, 'fetch').mockResolvedValue({
   //     json: jest.fn().mockResolvedValue([{ id: 74, nome: 'CHEVROLET' }]),
