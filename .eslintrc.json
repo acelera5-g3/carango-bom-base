@@ -20,7 +20,7 @@
       "jsx": true
     }
   },
-  "plugins": ["jest", "react"],
+  "plugins": ["jest", "react", "testing-library"],
   "rules": {
     "global-require": "off",
     "import/prefer-default-export": "off",

@@ -24,7 +24,7 @@ function CadastroMarca() {
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
   function cancelar() {
-    history.goBack();
+    history.push('/');
   }
 
   // TODO: Avaliar remover disable na próxima linha
@@ -42,14 +42,14 @@ function CadastroMarca() {
             if (id) {
               MarcaService.alterar({ id, nome: marca })
                 .then(() => {
-                  history.goBack();
+                  history.push('/');
                 });
             }
             else {
               MarcaService.cadastrar({ nome: marca })
                 .then(() => {
                   setMarca('');
-                  history.goBack();
+                  history.push('/');
                 });
             }
           }
@@ -68,12 +68,14 @@ function CadastroMarca() {
                 fullWidth
                 required
                 margin="normal"
+                data-testid='inputMarca'
             />
 
             <Button
                 variant="contained"
                 color="primary"
                 type="submit"
+                data-testid='submitButton'
                 disabled={!possoEnviar()}>
                 {id ? 'Alterar' : 'Cadastrar'}
             </Button>
@@ -81,6 +83,7 @@ function CadastroMarca() {
             <Button
                 variant="contained"
                 color="secondary"
+                data-testid='cancelarButton'
                 onClick={cancelar}>
                 Cancelar
             </Button>
