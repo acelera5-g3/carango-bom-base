@@ -3,7 +3,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import blue from '@material-ui/core/colors/blue';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import MarcaService from '../services/Marca/MarcaService';
+import MarcaService from '../../services/Marca/MarcaService';
 
 const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
@@ -29,7 +29,6 @@ const ListagemMarcas = () => {
   const history = useHistory();
 
   function alterar() {
-    console.log('felipe cara cool', history);
     history.push(`/alteracao-marca/${marcaSelecionada.id}`);
   }
 
