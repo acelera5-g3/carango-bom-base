@@ -24,6 +24,7 @@ const muiTheme = createMuiTheme(
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    height: '100vh'
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
