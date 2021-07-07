@@ -1,9 +1,7 @@
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import {
-  render, screen, fireEvent, act,
-} from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import CadastroMarca from './CadastroMarca';
 import MarcaService from '../services/Marca/MarcaService';
 
@@ -13,13 +11,14 @@ describe('CadastroMarca', () => {
   let route;
   let path;
 
-  const createInstance = async () => render(
-    <Router history={history}>
-      <Route path={path}>
-        <CadastroMarca />
-      </Route>
-    </Router>,
-  );
+  const createInstance = async () =>
+    render(
+      <Router history={history}>
+        <Route path={path}>
+          <CadastroMarca />
+        </Route>
+      </Router>
+    );
 
   const submitEvent = async () => {
     await createInstance();
@@ -57,7 +56,7 @@ describe('CadastroMarca', () => {
       pushSpy = jest.spyOn(history, 'push');
     });
 
-    it(('Deve instanciar o componente'), () => {
+    it('Deve instanciar o componente', () => {
       expect(createInstance()).toBeDefined();
     });
 
@@ -109,6 +108,7 @@ describe('CadastroMarca', () => {
       pushSpy = jest.spyOn(history, 'push');
     });
 
+    // eslint-disable-next-line jest/no-commented-out-tests
     // it(('Deve instanciar o componente'), () => {
     //   expect(createInstance()).toBeDefined();
     // });
