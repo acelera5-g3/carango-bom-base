@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+.MuiDataGrid-columnsContainer {
+  background: #eff0f2;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -37,7 +37,7 @@ describe('CadastroMarca', () => {
     const resolved = { id: 1, nome: 'Teste' };
     jest.spyOn(MarcaService, 'cadastrar').mockResolvedValue(() => resolved);
     jest.spyOn(MarcaService, 'alterar').mockResolvedValue(() => resolved);
-    // jest.spyOn(MarcaService, 'consultar').mockResolvedValue(() => resolved);
+
     history = createMemoryHistory();
 
     jest.mock('react-router-dom', () => ({
