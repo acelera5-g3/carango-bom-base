@@ -66,8 +66,10 @@ describe('Login', () => {
         await changeInput('inputEmail', 'teste@valido.com');
         await changeInput('inputSenha', 's3nh4v4l1d4#');
         const button = screen.getByTestId('submitButton');
-        fireEvent.click(button);
-        expect(await AuthService.login).toBeCalled();
+        await act( async () => {
+            fireEvent.click(button);
+        });
+        expect(AuthService.login).toBeCalled();
         expect(pushSpy).toHaveBeenCalledWith('/dashboard');
     });
 
@@ -81,8 +83,8 @@ describe('Login', () => {
         await act( async () => {
             fireEvent.click(button);
         });
-        expect(await AuthService.login).toBeCalled();
-        expect(screen.getByText('Erro ao logar!')).toBeInTheDocument();
+        expect(AuthService.login).toBeCalled();
+        expect(await screen.getByText('Erro ao logar!')).toBeInTheDocument();
     });
 
 
