@@ -39,7 +39,6 @@ const ListagemMarcas = () => {
     });
   }
 
-  // TODO: Avaliar remover disable na próxima linha
   // eslint-disable-next-line
   useEffect(() => carregarMarcas(), []);
 
