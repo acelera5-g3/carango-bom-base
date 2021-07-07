@@ -4,9 +4,9 @@ import blue from '@material-ui/core/colors/blue';
 import { ptBR } from '@material-ui/core/locale';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-
 import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarcas';
+import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import Rodape from './components/Rodape';
 import './App.css';
 
@@ -46,7 +46,7 @@ function App() {
       <ThemeProvider theme={muiTheme}>
         <div className={classes.root}>
           <CssBaseline />
-          <main className={classes.content}>
+          <MenuLateral className={classes.content}>
             <div className={classes.toolbar} />
             <Container component="article" maxWidth="md">
               <Switch>
@@ -62,7 +62,7 @@ function App() {
               </Switch>
               <Rodape />
             </Container>
-          </main>
+          </MenuLateral>
         </div>
       </ThemeProvider>
     </Router>
