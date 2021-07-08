@@ -4,7 +4,7 @@ import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import AuthService from '../../../services/Auth/AuthService';
 import { Cadastro } from '../index';
-import { changeInput, historyMock } from '../../../tests/testing';
+import { changeInput, historyMock, testesUsario } from '../../../tests';
 
 describe('Cadastro', () => {
   const history = createMemoryHistory();
@@ -27,23 +27,7 @@ describe('Cadastro', () => {
     );
   });
 
-  it('Deve instanciar o componente na tela de Cadastro', async () => {
-    expect(await screen.findByTestId('cadastroForm')).toBeInTheDocument();
-  });
-
-  it('Deve mostrar erro ao colocar um e-mail inválido na tela de Cadastro', async () => {
-    await changeInput('inputEmail', 'teste Inválido');
-    expect(
-      await screen.getByText('E-mail informado inválido.')
-    ).toBeInTheDocument();
-  });
-
-  it('Deve mostrar erro ao colocar uma senha inválida na tela de Cadastro', async () => {
-    await changeInput('inputSenha', 'aa');
-    expect(
-      await screen.getByText('A senha deve possuir ao menos 3 caracteres.')
-    ).toBeInTheDocument();
-  });
+  testesUsario('cadastroForm');
 
   it('Deve mostrar erro ao colocar a confirmação de senha inválida na tela de Cadastro', async () => {
     await changeInput('inputConfirmacaoSenha', 'aa');

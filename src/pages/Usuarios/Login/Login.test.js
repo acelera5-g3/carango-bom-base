@@ -4,7 +4,7 @@ import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import AuthService from '../../../services/Auth/AuthService';
 import { Login } from '../index';
-import { changeInput, historyMock } from '../../../tests/testing';
+import { changeInput, historyMock, testesUsario } from '../../../tests';
 
 describe('Login', () => {
   const history = createMemoryHistory();
@@ -27,23 +27,7 @@ describe('Login', () => {
     );
   });
 
-  it('Deve instanciar o componente de Login', async () => {
-    expect(await screen.findByTestId('loginForm')).toBeInTheDocument();
-  });
-
-  it('Deve mostrar erro ao colocar um e-mail inválido na tela de Login', async () => {
-    await changeInput('inputEmail', 'teste Inválido');
-    expect(
-      await screen.getByText('E-mail informado inválido.')
-    ).toBeInTheDocument();
-  });
-
-  it('Deve mostrar erro ao colocar uma senha inválida na tela de Login', async () => {
-    await changeInput('inputSenha', 'aa');
-    expect(
-      await screen.getByText('A senha deve possuir ao menos 3 caracteres.')
-    ).toBeInTheDocument();
-  });
+  testesUsario('loginForm');
 
   it('Deve habilitar o botão quando o form estiver preenchido corretamente na tela de Login', async () => {
     await changeInput('inputEmail', 'teste@valido.com');
