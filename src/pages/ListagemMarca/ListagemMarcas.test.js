@@ -3,6 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import ListagemMarcas from './ListagemMarcas';
 
 describe('ListagemMarcas', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  })
+
   it('Deve listar os veiculos', () => {
     const { container } = render(<ListagemMarcas />);
     expect(container).toBeDefined();
