@@ -20,5 +20,17 @@
       "nome": "PEUGEOUT",
       "id": 80
     }
-  ]
+  ],
+  "usuarios": {
+    "login": [
+      {
+        "id": 74,
+        "email": "teste@teste.com",
+        "senha": "teste"
+      }
+    ],
+    "cadastro": [
+      
+    ]
+  }
 }

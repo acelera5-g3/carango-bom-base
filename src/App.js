@@ -1,15 +1,15 @@
 import React from 'react';
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarca';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import Login from "./pages/Login";
+import {Login, Cadastro} from "./pages/Usuarios";
 
-const muiTheme = createTheme(
+const muiTheme = createMuiTheme(
   {
     palette: {
       primary: {
@@ -53,6 +53,9 @@ function App() {
                 </Route>
                 <Route path="/login">
                   <Login />
+                </Route>
+                <Route path="/cadastro">
+                  <Cadastro />
                 </Route>
                 <Route path="/">
                   <ListagemMarcas/>

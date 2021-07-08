@@ -1,10 +1,10 @@
 import React from 'react';
 import {act, fireEvent, render, screen} from "@testing-library/react";
-import Login from "./Login";
 import {Route, Router} from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import AuthService from "../services/Auth/AuthService";
 import {createMemoryHistory} from "history";
+import AuthService from "../../services/Auth/AuthService";
+import {Login} from ".";
 
 describe('Login', () => {
 
@@ -52,7 +52,6 @@ describe('Login', () => {
         expect(await screen.getByText('A senha deve possuir ao menos 3 caracteres.')).toBeInTheDocument();
     });
 
-
     it('Deve habilitar o botão quando o form estiver preenchido corretamente', async () => {
         await changeInput('inputEmail', 'teste@valido.com');
         await changeInput('inputSenha', 's3nh4v4l1d4#');
@@ -69,7 +68,7 @@ describe('Login', () => {
         await act( async () => {
             fireEvent.click(button);
         });
-        expect(AuthService.login).toBeCalled();
+        expect(AuthService.login).toHaveBeenCalled();
         expect(pushSpy).toHaveBeenCalledWith('/dashboard');
     });
 
@@ -83,7 +82,7 @@ describe('Login', () => {
         await act( async () => {
             fireEvent.click(button);
         });
-        expect(AuthService.login).toBeCalled();
+        expect(AuthService.login).toHaveBeenCalled();
         expect(await screen.getByText('Erro ao logar!')).toBeInTheDocument();
     });
 
