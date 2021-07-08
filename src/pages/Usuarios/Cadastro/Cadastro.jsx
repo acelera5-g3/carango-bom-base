@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useErros from '../../../hooks/useErros';
 import AuthService from '../../../services/Auth/AuthService';
-import {confirmarSenha, validarEmail, validarSenha} from "../validacoes";
+import { confirmarSenha, validarEmail, validarSenha } from '../validacoes';
 
 const Cadastro = () => {
   const [email, setEmail] = useState('');
@@ -90,7 +90,7 @@ const Cadastro = () => {
         error={!erros.confirmacaoSenha.valido}
         name="confirmacaoSenha"
         id="confirmacaoSenha"
-        label="Confirmação de Senha"
+        label="Confirmação de senha"
         type="password"
         variant="outlined"
         fullWidth

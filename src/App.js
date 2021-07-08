@@ -7,7 +7,7 @@ import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarca';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import {Login, Cadastro} from "./pages/Usuarios";
+import { Login, Cadastro } from "./pages/Usuarios";
 
 const muiTheme = createMuiTheme(
   {
