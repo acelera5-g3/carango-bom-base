@@ -1,13 +1,15 @@
 import React from 'react';
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarca';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import { Login, Cadastro } from "./pages/Usuarios";
+import { Login, Cadastro } from './pages/Usuarios';
+import ListagemUsuario from './pages/ListagemUsuario';
+import ListagemVeiculos from './pages/ListagemVeiculos';
 
 const muiTheme = createMuiTheme(
   {
@@ -25,7 +27,7 @@ const muiTheme = createMuiTheme(
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh'
+    height: '100vh',
   },
   content: {
     flexGrow: 1,
@@ -46,10 +48,16 @@ function App() {
             <Container component="article" maxWidth="md">
               <Switch>
                 <Route path="/cadastro-marca">
-                  <CadastroMarca/>
+                  <CadastroMarca />
                 </Route>
                 <Route path="/alteracao-marca/:id">
-                  <CadastroMarca/>
+                  <CadastroMarca />
+                </Route>
+                <Route path="/cadastro-usuario">
+                  <CadastroMarca />
+                </Route>
+                <Route path="/alteracao-usuario/:id">
+                  <CadastroMarca />
                 </Route>
                 <Route path="/login">
                   <Login />
@@ -57,8 +65,14 @@ function App() {
                 <Route path="/cadastro">
                   <Cadastro />
                 </Route>
-                <Route path="/">
-                  <ListagemMarcas/>
+                <Route path="/usuarios">
+                  <ListagemUsuario />
+                </Route>
+                <Route path="/veiculos">
+                  <ListagemVeiculos />
+                </Route>
+                <Route exact path="/">
+                  <ListagemMarcas />
                 </Route>
               </Switch>
             </Container>
