@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 import ListagemMarcas from './ListagemMarcas';
 
 describe('ListagemMarcas', () => {
   afterEach(() => {
     jest.clearAllMocks();
-  })
+  });
 
   it('Deve listar os veiculos', () => {
     const { container } = render(<ListagemMarcas />);
@@ -44,22 +46,24 @@ describe('ListagemMarcas', () => {
     expect(await screen.findByText('FIAT')).not.toBeInTheDocument();
   });
 
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it('Deve alterar a marca', async () => {
-  //   jest.spyOn(global, 'fetch').mockResolvedValue({
-  //     json: jest.fn().mockResolvedValue([{ id: 74, nome: 'CHEVROLET' }]),
-  //   });
-  //   const pushSpy = jest.spyOn(history, 'push');
-  //   render(<ListagemMarcas />);
-  //   await act(async () => {
-  //     const brandRow = await screen.findByText('CHEVROLET');
-  //     fireEvent.click(brandRow);
-  //   });
-  //   await act(async () => {
-  //     const botaoAlterar = await screen.getByTestId('botao-alterar');
-  //     fireEvent.click(botaoAlterar);
-  //   });
-
-  //   expect(pushSpy).toHaveBeenCalled();
-  // });
+  it('Deve alterar a marca', async () => {
+    const history = createMemoryHistory();
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue([{ id: 74, nome: 'CHEVROLET' }]),
+    });
+    render(
+      <Router history={history}>
+        <ListagemMarcas />
+      </Router>
+    );
+    await act(async () => {
+      const brandRow = await screen.findByText('CHEVROLET');
+      fireEvent.click(brandRow);
+    });
+    await act(async () => {
+      const botaoAlterar = await screen.getByTestId('botao-alterar');
+      fireEvent.click(botaoAlterar);
+    });
+    expect(history.location.pathname).toContain('/alteracao-marca');
+  });
 });
