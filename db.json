@@ -60,22 +60,5 @@
       "ano": 2020,
       "valor": "R$ 56.000,000"
     }
-<<<<<<< HEAD
-  ],
-  "usuarios": {
-    "login": [
-      {
-        "id": 74,
-        "email": "teste@teste.com",
-        "senha": "teste"
-      }
-    ],
-    "cadastro": [
-      
-    ]
-  }
-}
-=======
   ]
 }
->>>>>>> 7fe291caa856ac89bf9db419dd1f51b181e6ee91
