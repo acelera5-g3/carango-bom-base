@@ -3,8 +3,8 @@ import {act, fireEvent, render, screen} from "@testing-library/react";
 import {Route, Router} from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import {createMemoryHistory} from "history";
-import AuthService from "../../services/Auth/AuthService";
-import {Cadastro} from ".";
+import AuthService from "../../../services/Auth/AuthService";
+import {Cadastro} from "../index";
 
 describe('Cadastro', () => {
 
@@ -58,48 +58,49 @@ describe('Cadastro', () => {
     });
 
     it('Deve mostrar erro ao colocar senhas diferentes', async () => {
-        await changeInput('inputSenha', 'aaa');
-        await changeInput('inputConfirmacaoSenha', 'aab');
+        await act(async () => {
+            await changeInput('inputSenha', 'aaa');
+            await changeInput('inputConfirmacaoSenha', 'aab');
+        });
         expect(await screen.getByText('As senhas devem ser iguais.')).toBeInTheDocument();
     });
 
-    // it('Deve habilitar o botão quando o form estiver preenchido corretamente', async () => {
-    //   await act(async() => {
-    //     await changeInput('inputEmail', 'teste@valido.com'); 
-    //     await changeInput('inputSenha', 's3nh4v4l1d4#');
-    //     await changeInput('inputConfirmacaoSenha', 's3nh4v4l1d4#');
-    //   })
-    //     expect(await screen.getByTestId('submitButton')).toBeEnabled();
-    // });
+    it('Deve habilitar o botão quando o form estiver preenchido corretamente', async () => {
+        await changeInput('inputEmail', 'teste@valido.com');
+        await changeInput('inputSenha', 's3nh4v4l1d4#');
+        await changeInput('inputConfirmacaoSenha', 's3nh4v4l1d4#');
+        expect(await screen.getByTestId('submitButton').closest('button')).toBeEnabled();
+    });
 
-    // it('Deve enviar o Formulário com sucesso', async () => {
-    //     jest.spyOn(AuthService, 'cadastrar').mockResolvedValue({
-    //         id: 1,
-    //         email: 'teste@teste.com'
-    //     });
-    //     await changeInput('inputEmail', 'teste@valido.com');
-    //     await changeInput('inputSenha', 's3nh4v4l1d4#');
-    //     await changeInput('inputConfirmacaoSenha', 's3nh4v4l1d4#');
-    //     const button = screen.getByTestId('submitButton');
-    //     await act( async () => {
-    //         fireEvent.click(button);
-    //     });
-    //     expect(AuthService.cadastrar).toHaveBeenCalled();
-    //     expect(pushSpy).toHaveBeenCalledWith('/usuarios');
-    // });
-
-    it('Deve dar erro ao enviar o formulário', async () => {
-        jest.spyOn(AuthService, 'login').mockRejectedValue({
-            status: "401"
+    it('Deve enviar o Formulário com sucesso', async () => {
+        jest.spyOn(AuthService, 'cadastrar').mockResolvedValue({
+            id: 1,
+            email: 'teste@teste.com'
         });
         await changeInput('inputEmail', 'teste@valido.com');
         await changeInput('inputSenha', 's3nh4v4l1d4#');
+        await changeInput('inputConfirmacaoSenha', 's3nh4v4l1d4#');
         const button = screen.getByTestId('submitButton');
         await act( async () => {
             fireEvent.click(button);
         });
-        expect(AuthService.login).toHaveBeenCalled();
-        expect(await screen.getByText('Erro ao logar!')).toBeInTheDocument();
+        expect(AuthService.cadastrar).toHaveBeenCalled();
+        expect(pushSpy).toHaveBeenCalledWith('/usuarios');
+    });
+
+    it('Deve dar erro ao enviar o formulário', async () => {
+        jest.spyOn(AuthService, 'cadastrar').mockRejectedValue({
+            status: 409
+        });
+        await changeInput('inputEmail', 'teste@valido.com');
+        await changeInput('inputSenha', 's3nh4v4l1d4#');
+        await changeInput('inputConfirmacaoSenha', 's3nh4v4l1d4#');
+        const button = screen.getByTestId('submitButton');
+        await act( async () => {
+            fireEvent.click(button);
+        });
+        expect(AuthService.cadastrar).toHaveBeenCalled();
+        expect(await screen.getByText('Erro ao cadastrar o usuário!')).toBeInTheDocument();
     });
 
 

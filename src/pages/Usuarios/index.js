@@ -1,4 +1,4 @@
-import Login from './Login.jsx';
-import Cadastro from './Cadastro.jsx';
+import Login from './Login';
+import Cadastro from './Cadastro';
 
-export { Login, Cadastro};
+export { Login, Cadastro };

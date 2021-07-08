@@ -2,8 +2,9 @@ import { Button, TextField, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useErros from '../../hooks/useErros';
-import AuthService from '../../services/Auth/AuthService';
+import useErros from '../../../hooks/useErros';
+import AuthService from '../../../services/Auth/AuthService';
+import {confirmarSenha, validarEmail, validarSenha} from "../validacoes";
 
 const Cadastro = () => {
   const [email, setEmail] = useState('');
@@ -15,40 +16,14 @@ const Cadastro = () => {
   const history = useHistory();
 
   const validacoes = {
-    email: (dado) => {
-      if (
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          dado
-        )
-      ) {
-        return { valido: true };
-      }
-
-      return { valido: false, texto: 'E-mail informado inválido.' };
-    },
-    senha: (dado) => {
-      if (dado && dado.length >= 3) {
-        return { valido: true };
-      }
-      return {
-        valido: false,
-        texto: 'A senha deve possuir ao menos 3 caracteres.',
-      };
-    },
+    email: (dado) => validarEmail(dado),
+    senha: (dado) => validarSenha(dado),
     confirmacaoSenha: (dado) => {
       const validacaoSenha = validacoes.senha(dado);
       if (!validacaoSenha.valido) {
         return validacaoSenha;
       }
-      if (dado !== senha) {
-        return {
-            valido: false,
-            texto: 'As senhas devem ser iguais.',
-        }
-      }
-      return {
-        valido: true,
-      };
+      return confirmarSenha(dado, senha);
     },
   };
 
@@ -60,13 +35,12 @@ const Cadastro = () => {
       onSubmit={async (e) => {
         e.preventDefault();
         if (possoEnviar()) {
-          await AuthService.login({
+          await AuthService.cadastrar({
             email,
             senha,
           })
-            .then((data) => {
-              console.log('TODO: Salvar o token!', data);
-              history.push('/dashboard');
+            .then(() => {
+              history.push('/usuarios');
             })
             .catch(() => {
               setAlert(true);
@@ -152,7 +126,7 @@ const Cadastro = () => {
         onClose={() => setAlert(!alert)}
       >
         <Alert severity="error" title="Erro!">
-          Erro ao logar!
+          Erro ao cadastrar o usuário!
         </Alert>
       </Snackbar>
     </form>

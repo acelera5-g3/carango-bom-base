@@ -3,8 +3,8 @@ import {act, fireEvent, render, screen} from "@testing-library/react";
 import {Route, Router} from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import {createMemoryHistory} from "history";
-import AuthService from "../../services/Auth/AuthService";
-import {Login} from ".";
+import AuthService from "../../../services/Auth/AuthService";
+import {Login} from "../index";
 
 describe('Login', () => {
 
