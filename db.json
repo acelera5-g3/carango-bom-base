@@ -9,16 +9,56 @@
       "nome": "PEAGEOT 7627"
     },
     {
-      "nome": "Honda",
-      "id": 77
-    },
-    {
       "nome": "Honda 90",
       "id": 79
     },
     {
       "nome": "PEUGEOUT",
       "id": 80
+    },
+    {
+      "nome": "Diego e Felipe",
+      "id": 81
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 74,
+      "nome": "Aryclenio Barros"
+    },
+    {
+      "id": 64,
+      "nome": "Marcos Neto"
+    }
+  ],
+  "veiculos": [
+    {
+      "id": 74,
+      "marca": "HYUNDAY",
+      "modelo": "HB20",
+      "ano": 2020,
+      "valor": "R$ 56.000,000"
+    },
+    {
+      "id": 4,
+      "marca": "HYUNDAY",
+      "modelo": "HB20",
+      "ano": 2020,
+      "valor": "R$ 56.000,000"
+    },
+    {
+      "id": 3,
+      "marca": "HYUNDAY",
+      "modelo": "HB20",
+      "ano": 2020,
+      "valor": "R$ 56.000,000"
+    },
+    {
+      "id": 2,
+      "marca": "HYUNDAY",
+      "modelo": "HB20",
+      "ano": 2020,
+      "valor": "R$ 56.000,000"
     }
   ]
 }

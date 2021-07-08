@@ -1,15 +1,17 @@
 import React from 'react';
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarca';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import Login from "./pages/Login";
+import Login from './pages/Login';
+import ListagemUsuario from './pages/ListagemUsuario';
+import ListagemVeiculos from './pages/ListagemVeiculos';
 
-const muiTheme = createTheme(
+const muiTheme = createMuiTheme(
   {
     palette: {
       primary: {
@@ -25,7 +27,7 @@ const muiTheme = createTheme(
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh'
+    height: '100vh',
   },
   content: {
     flexGrow: 1,
@@ -46,16 +48,28 @@ function App() {
             <Container component="article" maxWidth="md">
               <Switch>
                 <Route path="/cadastro-marca">
-                  <CadastroMarca/>
+                  <CadastroMarca />
                 </Route>
                 <Route path="/alteracao-marca/:id">
-                  <CadastroMarca/>
+                  <CadastroMarca />
+                </Route>
+                <Route path="/cadastro-usuario">
+                  <CadastroMarca />
+                </Route>
+                <Route path="/alteracao-usuario/:id">
+                  <CadastroMarca />
                 </Route>
                 <Route path="/login">
                   <Login />
                 </Route>
-                <Route path="/">
-                  <ListagemMarcas/>
+                <Route exact path="/">
+                  <ListagemMarcas />
+                </Route>
+                <Route path="/usuarios">
+                  <ListagemUsuario />
+                </Route>
+                <Route path="/veiculos">
+                  <ListagemVeiculos />
                 </Route>
               </Switch>
             </Container>
