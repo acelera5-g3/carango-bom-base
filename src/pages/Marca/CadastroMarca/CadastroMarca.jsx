@@ -1,8 +1,8 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import useErros from '../../hooks/useErros';
-import MarcaService from '../../services/Marca/MarcaService';
+import useErros from '../../../hooks/useErros';
+import MarcaService from '../../../services/Marca/MarcaService';
 
 const useStyles = makeStyles(() => ({
   title: {

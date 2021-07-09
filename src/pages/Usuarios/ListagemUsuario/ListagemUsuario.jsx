@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import UsuarioService from '../../services/UsuarioService/UsuarioService';
-import Listagem from '../../components/Listagem';
+import UsuarioService from '../../../services/UsuarioService/UsuarioService';
+import Listagem from '../../../components/Listagem';
 
 const colunas = [{ field: 'nome', headerName: 'Usuários', width: 200 }];
 
