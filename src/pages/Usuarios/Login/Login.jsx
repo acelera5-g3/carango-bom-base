@@ -2,8 +2,9 @@ import { Button, TextField, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useErros from '../../hooks/useErros';
-import AuthService from '../../services/Auth/AuthService';
+import useErros from '../../../hooks/useErros';
+import AuthService from '../../../services/Auth/AuthService';
+import { validarEmail, validarSenha } from "../validacoes";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,26 +15,8 @@ const Login = () => {
   const history = useHistory();
 
   const validacoes = {
-    email: (dado) => {
-      if (
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          dado
-        )
-      ) {
-        return { valido: true };
-      }
-
-      return { valido: false, texto: 'E-mail informado inválido.' };
-    },
-    senha: (dado) => {
-      if (dado && dado.length >= 3) {
-        return { valido: true };
-      }
-      return {
-        valido: false,
-        texto: 'A senha deve possuir ao menos 3 caracteres.',
-      };
-    },
+    email: (dado) => validarEmail(dado),
+    senha: (dado) => validarSenha(dado),
   };
 
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);

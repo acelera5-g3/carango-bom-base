@@ -7,7 +7,7 @@ import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarca';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import Login from './pages/Login';
+import { Login, Cadastro } from './pages/Usuarios';
 import ListagemUsuario from './pages/ListagemUsuario';
 import ListagemVeiculos from './pages/ListagemVeiculos';
 
@@ -62,14 +62,17 @@ function App() {
                 <Route path="/login">
                   <Login />
                 </Route>
-                <Route exact path="/">
-                  <ListagemMarcas />
+                <Route path="/cadastro">
+                  <Cadastro />
                 </Route>
                 <Route path="/usuarios">
                   <ListagemUsuario />
                 </Route>
                 <Route path="/veiculos">
                   <ListagemVeiculos />
+                </Route>
+                <Route exact path="/">
+                  <ListagemMarcas />
                 </Route>
               </Switch>
             </Container>
