@@ -2,23 +2,27 @@
   "marcas": [
     {
       "id": 74,
-      "nome": "CHEVROLET A MELHOR"
+      "nome": "CHEVROLET A MELHOR",
+      "valorTotal": "R$ 568.000.000",
+      "quantidade": 10
     },
     {
       "id": 64,
-      "nome": "PEAGEOT 7627"
+      "nome": "PEAGEOT 7627",
+      "valorTotal": "R$ 98.000.000",
+      "quantidade": 5
     },
     {
       "nome": "Honda 90",
-      "id": 79
+      "id": 79,
+      "valorTotal": "R$ 333.000.000",
+      "quantidade": 1
     },
     {
       "nome": "PEUGEOUT",
-      "id": 80
-    },
-    {
-      "nome": "Diego e Felipe",
-      "id": 81
+      "id": 80,
+      "valorTotal": "R$ 0,00",
+      "quantidade": 0
     }
   ],
   "usuarios": [

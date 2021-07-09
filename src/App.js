@@ -10,6 +10,7 @@ import './App.css';
 import { Login, Cadastro } from './pages/Usuarios';
 import ListagemUsuario from './pages/ListagemUsuario';
 import ListagemVeiculos from './pages/ListagemVeiculos';
+import Dashboard from './pages/Dashboard';
 
 const muiTheme = createMuiTheme(
   {
@@ -70,6 +71,9 @@ function App() {
                 </Route>
                 <Route path="/veiculos">
                   <ListagemVeiculos />
+                </Route>
+                <Route path="/dashboard">
+                  <Dashboard />
                 </Route>
                 <Route exact path="/">
                   <ListagemMarcas />
