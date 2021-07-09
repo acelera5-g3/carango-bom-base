@@ -7,8 +7,8 @@ import AuthService from '../../../services/Auth/AuthService';
 import { confirmarSenha, validarEmail, validarSenha } from '../validacoes';
 
 const Cadastro = () => {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [cadastroEmail, setCadastroEmail] = useState('');
+  const [cadastroSenha, setCadastroSenha] = useState('');
   const [confirmacaoSenha, setConfirmacaoSenha] = useState('');
 
   const [alert, setAlert] = useState(false);
@@ -23,7 +23,7 @@ const Cadastro = () => {
       if (!validacaoSenha.valido) {
         return validacaoSenha;
       }
-      return confirmarSenha(dado, senha);
+      return confirmarSenha(dado, cadastroSenha);
     },
   };
 
@@ -36,8 +36,8 @@ const Cadastro = () => {
         e.preventDefault();
         if (possoEnviar()) {
           await AuthService.cadastrar({
-            email,
-            senha,
+            email: cadastroEmail,
+            senha: cadastroSenha,
           })
             .then(() => {
               history.push('/usuarios');
@@ -49,8 +49,8 @@ const Cadastro = () => {
       }}
     >
       <TextField
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={cadastroEmail}
+        onChange={(e) => setCadastroEmail(e.target.value)}
         onBlur={validarCampos}
         helperText={erros.email.texto}
         error={!erros.email.valido}
@@ -66,8 +66,8 @@ const Cadastro = () => {
       />
 
       <TextField
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
+        value={cadastroSenha}
+        onChange={(e) => setCadastroSenha(e.target.value)}
         onBlur={validarCampos}
         helperText={erros.senha.texto}
         error={!erros.senha.valido}
