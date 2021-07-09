@@ -101,8 +101,8 @@ function MenuLateral(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Meu carango bom
+          <Typography variant="h5" noWrap>
+            MEU CARANGO BOM
           </Typography>
         </Toolbar>
       </AppBar>
@@ -118,7 +118,7 @@ function MenuLateral(props) {
               paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true, 
+              keepMounted: true,
             }}
           >
             {drawer}
