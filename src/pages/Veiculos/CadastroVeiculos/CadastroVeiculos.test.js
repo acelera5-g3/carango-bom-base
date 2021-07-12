@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import CadastroVeiculos from './CadastroVeiculos';
 import MarcaService from '../../../services/Marca/MarcaService';
 import { changeInput }  from '../../../tests/testing';
