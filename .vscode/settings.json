@@ -11,5 +11,12 @@
   "eslint.validate": [
     "javascript",
     "react"
+  ],
+  "cSpell.ignoreWords": [
+    "cadastro",
+    "form",
+    "marca",
+    "testid",
+    "veiculos"
   ]
 }
