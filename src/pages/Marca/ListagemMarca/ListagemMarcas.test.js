@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import ListagemMarcas from './ListagemMarcas';
-import MarcaService from '../../services/Marca/MarcaService';
+import MarcaService from '../../../services/Marca/MarcaService';
 
 describe('ListagemMarcas', () => {
   const history = createMemoryHistory();

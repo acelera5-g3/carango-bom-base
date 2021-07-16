@@ -3,13 +3,12 @@ import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import CadastroMarca from './pages/CadastroMarca';
-import ListagemMarcas from './pages/ListagemMarca';
+import CadastroMarca from './pages/Marca/CadastroMarca';
+import { ListagemMarcas } from './pages/Marca';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import { Login, Cadastro } from './pages/Usuarios';
-import ListagemUsuario from './pages/ListagemUsuario';
-import ListagemVeiculos from './pages/ListagemVeiculos';
+import { Login, Cadastro, ListagemUsuario } from './pages/Usuarios';
+import { ListagemVeiculos, CadastroVeiculos } from './pages/Veiculos';
 import Dashboard from './pages/Dashboard';
 
 const muiTheme = createMuiTheme(
@@ -74,6 +73,9 @@ function App() {
                 </Route>
                 <Route path="/dashboard">
                   <Dashboard />
+                </Route>
+                <Route path="/cadastro-veiculos">
+                  <CadastroVeiculos />
                 </Route>
                 <Route exact path="/">
                   <ListagemMarcas />

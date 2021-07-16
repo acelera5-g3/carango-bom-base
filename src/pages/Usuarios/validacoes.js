@@ -28,4 +28,17 @@ function confirmarSenha(dado, senha) {
   };
 }
 
-export { validarEmail, validarSenha, confirmarSenha };
+function validarPreenchimento(dado){
+  if(dado){
+    return {
+      valido: true, 
+    }
+  }
+
+  return {
+    valido: false,
+    texto: 'O campo deve ser preenchido',
+  };
+}
+
+export { validarEmail, validarSenha, confirmarSenha, validarPreenchimento };
