@@ -24,13 +24,15 @@ const ListagemMarcas = () => {
     MarcaService.listar().then((dados) => setMarcas(dados));
   }
 
+  function alterar() {
+    if (marcaSelecionada) {
+      history.push(`/alteracao-marca/${marcaSelecionada?.id}`);
+    }
+  }
+
   return (
     <Listagem
-      alterar={() => {
-        marcaSelecionada
-          ? history.push(`/alteracao-marca/${marcaSelecionada?.id}`)
-          : null;
-      }}
+      alterar={alterar}
       excluir={excluir}
       incluir={() => history.push('/cadastro-marca')}
       colunas={colunas}
