@@ -26,7 +26,10 @@ const ListagemMarcas = () => {
 
   return (
     <Listagem
-      alterar={() => history.push(`/alteracao-marca/${marcaSelecionada?.id}`)}
+      alterar={() => {
+        marcaSelecionada &&
+          history.push(`/alteracao-marca/${marcaSelecionada?.id}`);
+      }}
       excluir={excluir}
       incluir={() => history.push('/cadastro-marca')}
       colunas={colunas}
