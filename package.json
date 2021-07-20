@@ -58,11 +58,9 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "history": "^5.0.0",
     "jest-dom": "^4.0.0",
-    "jest-sonar-reporter": "^2.0.0",
     "json-server": "^0.16.3"
   },
   "jest": {
-    "testResultsProcessor": "jest-sonar-reporter",
     "collectCoverageFrom": [
       "src/App.js",
       "src/(components|pages)/**/*.(js|jsx)",
