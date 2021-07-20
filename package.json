@@ -62,6 +62,7 @@
     "json-server": "^0.16.3"
   },
   "jest": {
+    "testResultsProcessor": "jest-sonar-reporter",
     "collectCoverageFrom": [
       "src/App.js",
       "src/(components|pages)/**/*.(js|jsx)",
