@@ -25,7 +25,7 @@ const CadastroVeiculos = () => {
 
   useEffect(() => {
     MarcaService.listar().then((values) => {
-      setMarcas(values);
+      setMarcas(values.content);
     });
   }, []);
 

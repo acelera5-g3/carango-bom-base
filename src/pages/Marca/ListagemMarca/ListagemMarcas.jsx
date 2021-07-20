@@ -21,7 +21,9 @@ const ListagemMarcas = () => {
   useEffect(() => carregarMarcas(), []);
 
   function carregarMarcas() {
-    MarcaService.listar().then((dados) => setMarcas(dados));
+    MarcaService.listar().then((dados) => {
+      setMarcas(dados.content);
+    });
   }
 
   function alterar() {

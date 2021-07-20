@@ -28,11 +28,16 @@ const ListagemVeiculos = () => {
     });
   }
 
-  // eslint-disable-next-line
   useEffect(() => carregarVeiculos(), []);
 
   function carregarVeiculos() {
-    VeiculoService.listar().then((dados) => setVeiculos(dados));
+    VeiculoService.listar().then((dados) => {
+      const listaVeiculos = dados.content.map((veiculo) => {
+        const { id, modelo, ano, valor, marca } = veiculo;
+        return { id, modelo, ano, valor, marca: marca.nome };
+      });
+      setVeiculos(listaVeiculos);
+    });
   }
 
   return (
