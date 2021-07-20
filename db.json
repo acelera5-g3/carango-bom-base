@@ -1,0 +1,68 @@
+{
+  "marcas": [
+    {
+      "id": 74,
+      "nome": "FIAT",
+      "valorTotal": "R$ 568.000.000",
+      "quantidade": 10
+    },
+    {
+      "id": 64,
+      "nome": "VW",
+      "valorTotal": "R$ 98.000.000",
+      "quantidade": 5
+    },
+    {
+      "nome": "CITROEN",
+      "id": 79,
+      "valorTotal": "R$ 333.000.000",
+      "quantidade": 1
+    },
+    {
+      "nome": "HYUNDAI",
+      "id": 80,
+      "valorTotal": "R$ 0,00",
+      "quantidade": 0
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 74,
+      "nome": "Aryclenio Barros"
+    },
+    {
+      "id": 64,
+      "nome": "Marcos Neto"
+    }
+  ],
+  "veiculos": [
+    {
+      "id": 74,
+      "marca": "HYUNDAI",
+      "modelo": "HB20",
+      "ano": 2019,
+      "valor": "R$ 51.000,000"
+    },
+    {
+      "id": 4,
+      "marca": "VW",
+      "modelo": "POLO",
+      "ano": 2020,
+      "valor": "R$ 52.000,000"
+    },
+    {
+      "id": 3,
+      "marca": "FIAT",
+      "modelo": "TORO",
+      "ano": 2021,
+      "valor": "R$ 53.000,000"
+    },
+    {
+      "id": 2,
+      "marca": "CITROEN",
+      "modelo": "C4",
+      "ano": 2022,
+      "valor": "R$ 54.000,000"
+    }
+  ]
+}
