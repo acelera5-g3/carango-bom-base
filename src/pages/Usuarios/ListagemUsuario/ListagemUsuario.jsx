@@ -11,7 +11,9 @@ const ListagemUsuario = () => {
   const history = useHistory();
 
   function alterar() {
-    history.push(`/alteracao-usuario/${usuarioSelecionado?.id}`);
+    if (usuarioSelecionado) {
+      history.push(`/alteracao-usuario/${usuarioSelecionado?.id}`);
+    }
   }
 
   function excluir() {
