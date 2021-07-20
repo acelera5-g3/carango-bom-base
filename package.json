@@ -67,7 +67,6 @@
       "src/(components|pages)/**/*.(js|jsx)",
       "src/services/**/*.js",
       "!src/tests/**/*.js"
-    ],
-    "testResultsProcessor": "jest-sonar-reporter"
+    ]
   }
 }

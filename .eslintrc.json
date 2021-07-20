@@ -51,10 +51,11 @@
         "devDependencies": true
       }
     ],
-    "jest/no-disabled-tests": "warn",
+    "jest/no-disabled-tests": "off",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
+    "jest/no-commented-out-tests": "off",
     "jest/valid-expect": "error",
     "react/react-in-jsx-scope": "off",
     "no-unused-vars": "warn"
