@@ -16,7 +16,7 @@ const ListagemVeiculos = () => {
   const history = useHistory();
 
   function alterar() {
-    history.push(`/alteracao-veiculo/${veiculoSelecionado.id}`);
+    history.push(`/alteracao-veiculo/${veiculoSelecionado?.id}`);
   }
 
   function excluir() {
