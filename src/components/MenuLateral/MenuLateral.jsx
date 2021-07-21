@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -55,6 +56,18 @@ function MenuLateral(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const history = useHistory();
+
+  const dadosMenu = [
+    { texto: 'Entrar', url: '/login' },
+    { texto: 'Veículos', url: '/veiculos' },
+  ];
+  const dadosMenuLogado = [
+    { texto: 'Marcas', url: '/' },
+    { texto: 'Usuários', url: '/usuarios' },
+    { texto: 'Dashboard', url: '/dashboard' },
+    { texto: 'Sair', url: '/login' },
+  ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -63,23 +76,31 @@ function MenuLateral(props) {
   const drawer = (
     <div>
       <List>
-        {['Entrar', 'Veículos'].map((text, index) => (
-          <ListItem button key={text}>
+        {dadosMenu.map((item, index) => (
+          <ListItem
+            button
+            key={item.texto}
+            onClick={() => history.push(item.url)}
+          >
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={item.texto} />
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {['Marcas', 'Usuários', 'Dashboard', 'Sair'].map((text, index) => (
-          <ListItem button key={text}>
+        {dadosMenuLogado.map((item, index) => (
+          <ListItem
+            button
+            key={item.texto}
+            onClick={() => history.push(item.url)}
+          >
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={item.texto} />
           </ListItem>
         ))}
       </List>

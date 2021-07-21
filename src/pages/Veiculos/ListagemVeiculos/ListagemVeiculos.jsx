@@ -44,7 +44,7 @@ const ListagemVeiculos = () => {
     <Listagem
       alterar={alterar}
       excluir={excluir}
-      incluir={() => history.push('/cadastro-veiculo')}
+      incluir={() => history.push('/cadastro-veiculos')}
       colunas={colunas}
       linhas={veiculos}
       rowSelected={veiculoSelecionado}

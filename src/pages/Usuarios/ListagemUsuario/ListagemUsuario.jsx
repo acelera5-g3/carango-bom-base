@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import UsuarioService from '../../../services/UsuarioService/UsuarioService';
 import Listagem from '../../../components/Listagem';
 
-const colunas = [{ field: 'nome', headerName: 'Usuários', width: 200 }];
+const colunas = [{ field: 'email', headerName: 'E-mail', width: 200 }];
 
 const ListagemUsuario = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -27,14 +27,14 @@ const ListagemUsuario = () => {
   useEffect(() => carregarUsuarios(), []);
 
   function carregarUsuarios() {
-    UsuarioService.listar().then((dados) => setUsuarios(dados));
+    UsuarioService.listar().then((dados) => setUsuarios(dados.content));
   }
 
   return (
     <Listagem
       alterar={alterar}
       excluir={excluir}
-      incluir={() => history.push('/cadastro-marca')}
+      incluir={() => history.push('/cadastro-usuario')}
       colunas={colunas}
       linhas={usuarios}
       rowSelected={usuarioSelecionado}

@@ -6,11 +6,6 @@ const AuthService = {
       .then((r) => r.json())
       .catch((err) => err);
   },
-  cadastrar(user) {
-    return request('http://localhost:3333/usuarios/cadastro', 'POST', user)
-      .then((r) => r.json())
-      .catch((err) => err);
-  },
 };
 
 export default AuthService;
