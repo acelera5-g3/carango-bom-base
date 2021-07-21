@@ -1,3 +1,3 @@
-import Cadastro from "./Cadastro";
+import CadastroUsuario from './CadastroUsuario';
 
-export default Cadastro;
+export default CadastroUsuario;
