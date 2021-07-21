@@ -1,11 +1,16 @@
-const estaLogado = () => {
+import AuthService from "../services/Auth/AuthService";
+
+const estaLogado = async () => {
   const token = localStorage.getItem("token");
 
-  if(token) {
-    return true
+  const resposta = await AuthService.validar(token);
+
+  if(resposta) {
+    return true;
   }
-  
-  return false
+
+  localStorage.clear();
+  return false;
 }
 
 export { estaLogado }

@@ -3,6 +3,7 @@ import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Switch, BrowserRouter as Router } from 'react-router-dom';
+import { AuthContext } from './hooks/AuthContext';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
 import Routes from './routes/Routes.js';
@@ -36,20 +37,22 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Router>
-      <ThemeProvider theme={muiTheme}>
-        <div className={classes.root}>
-          <CssBaseline />
-          <MenuLateral className={classes.content}>
-            <Container component="article" maxWidth="md">
-              <Switch>
-                <Routes />
-              </Switch>
-            </Container>
-          </MenuLateral>
-        </div>
-      </ThemeProvider>
-    </Router>
+    <AuthContext>
+      <Router>
+        <ThemeProvider theme={muiTheme}>
+          <div className={classes.root}>
+            <CssBaseline />
+            <MenuLateral className={classes.content}>
+              <Container component="article" maxWidth="md">
+                <Switch>
+                  <Routes />
+                </Switch>
+              </Container>
+            </MenuLateral>
+          </div>
+        </ThemeProvider>
+      </Router>
+    </AuthContext>
   );
 }
 
