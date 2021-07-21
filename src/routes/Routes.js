@@ -44,6 +44,10 @@ function Routes() {
       component: <CadastroVeiculos />,
     },
     {
+      path: '/alteracao-veiculos/:id',
+      component: <CadastroVeiculos />,
+    },
+    {
       path: '/',
       component: <ListagemMarcas />,
       exact: true,

@@ -17,7 +17,7 @@ const ListagemVeiculos = () => {
 
   function alterar() {
     if (veiculoSelecionado) {
-      history.push(`/alteracao-veiculo/${veiculoSelecionado?.id}`);
+      history.push(`/alteracao-veiculos/${veiculoSelecionado?.id}`);
     }
   }
 
@@ -32,7 +32,7 @@ const ListagemVeiculos = () => {
 
   function carregarVeiculos() {
     VeiculoService.listar().then((dados) => {
-      const listaVeiculos = dados.content.map((veiculo) => {
+      const listaVeiculos = dados?.content?.map((veiculo) => {
         const { id, modelo, ano, valor, marca } = veiculo;
         return { id, modelo, ano, valor, marca: marca.nome };
       });

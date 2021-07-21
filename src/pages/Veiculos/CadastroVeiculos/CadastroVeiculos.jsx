@@ -7,25 +7,34 @@ import {
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import MarcaService from '../../../services/Marca/MarcaService';
+import VeiculoService from '../../../services/Veiculo/VeiculoService';
 import { validarPreenchimento } from '../../Usuarios/validacoes';
 import useErros from '../../../hooks/useErros';
 
 const CadastroVeiculos = () => {
   const [marcas, setMarcas] = useState([]);
-  const [marcaSelecionada, setMarcaSelecionada] = useState('0');
-  const [modelo, setModelo] = useState('');
-  const [ano, setAno] = useState('');
-  const [valor, setValor] = useState('');
+  const [veiculo, setVeiculo] = useState({
+    marca: { id: 0, nome: '' },
+    modelo: '',
+    ano: '',
+    valor: '',
+  });
   const [alert, setAlert] = useState(false);
 
   const history = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
     MarcaService.listar().then((values) => {
       setMarcas(values.content);
+      if (id) {
+        VeiculoService.consultar(id).then((veiculo) => {
+          setVeiculo({ ...veiculo });
+        });
+      }
     });
   }, []);
 
@@ -40,17 +49,38 @@ const CadastroVeiculos = () => {
 
   return (
     <>
-      <form data-testid="cadastroVeiculosForm">
+      <form
+        data-testid="cadastroVeiculosForm"
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (possoEnviar()) {
+            const params = {
+              // marca: { id: marcaSelecionada },
+              ...veiculo,
+            };
+            if (id) {
+              VeiculoService.alterar({ id, ...params }).then(() => {
+                history.push('/veiculos');
+              });
+              // eslint-disable-next-line brace-style
+            } else {
+              VeiculoService.cadastrar(params).then(() => {
+                history.push('/veiculos');
+              });
+            }
+          }
+        }}
+      >
         <FormControl sx={{ m: 1, minWidth: 80 }}>
           <label htmlFor="select-input-marca">Marca</label>
           <NativeSelect
             name="marca"
             id="select-input-marca"
             data-testid="select-marca"
-            value={marcaSelecionada}
+            value={veiculo?.marca?.id}
             onBlur={validarCampos}
             error={!erros.marca.valido}
-            onChange={(value) => setMarcaSelecionada(value.target.value)}
+            onChange={(e) => setVeiculo({ ...veiculo, marca: e.target.value })}
           >
             <option value="0">Nenhuma</option>
             {marcas?.map((marca) => (
@@ -61,8 +91,8 @@ const CadastroVeiculos = () => {
           </NativeSelect>
           <FormHelperText>{erros.marca.texto}</FormHelperText>
           <TextField
-            value={modelo}
-            onChange={(e) => setModelo(e.target.value)}
+            value={veiculo?.modelo}
+            onChange={(e) => setVeiculo({ ...veiculo, modelo: e.target.value })}
             onBlur={validarCampos}
             helperText={erros.modelo.texto}
             error={!erros.modelo.valido}
@@ -76,8 +106,8 @@ const CadastroVeiculos = () => {
             data-testid="inputModelo"
           />
           <TextField
-            value={ano}
-            onChange={(e) => setAno(e.target.value)}
+            value={veiculo?.ano}
+            onChange={(e) => setVeiculo({ ...veiculo, ano: e.target.value })}
             onBlur={validarCampos}
             helperText={erros.ano.texto}
             error={!erros.ano.valido}
@@ -92,8 +122,8 @@ const CadastroVeiculos = () => {
           />
 
           <TextField
-            value={valor}
-            onChange={(e) => setValor(e.target.value)}
+            value={veiculo?.valor}
+            onChange={(e) => setVeiculo({ ...veiculo, valor: e.target.value })}
             onBlur={validarCampos}
             helperText={erros.valor.texto}
             error={!erros.valor.valido}
@@ -122,7 +152,7 @@ const CadastroVeiculos = () => {
             color="secondary"
             type="submit"
             data-testid="voltarButton"
-            onClick={() => history.push('/usuarios')}
+            onClick={() => history.push('/veiculos')}
           >
             Voltar
           </Button>
