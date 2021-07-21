@@ -1,6 +1,6 @@
 import { CardContent, Card, Typography, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import MarcaService from '../../services/Marca/MarcaService';
+import DashboardService from '../../services/Dashboard/DashboardService';
 
 export default function Dashboard() {
   const useStyles = makeStyles({
@@ -23,29 +23,29 @@ export default function Dashboard() {
     },
   });
 
-  const [listaMarcas, setListaMarcas] = useState([]);
+  const [listaDashboard, setListaDashboard] = useState([]);
   const classes = useStyles();
 
-  useEffect(() => carregarMarcas(), []);
+  useEffect(() => carregarDashboard(), []);
 
-  function carregarMarcas() {
-    MarcaService.listar().then((dados) => setListaMarcas(dados));
+  function carregarDashboard() {
+    DashboardService.listar().then((dados) => setListaDashboard(dados.content));
   }
 
   return (
     <div className={classes.container} data-testid="dashboard">
-      {listaMarcas && listaMarcas.length ? (
-        listaMarcas.map((marca) => (
-          <Card className={classes.root} key={marca.id}>
+      {listaDashboard && listaDashboard.length ? (
+        listaDashboard.map((lista) => (
+          <Card className={classes.root} key={lista.idMarca}>
             <CardContent>
               <Typography variant="h5" component="h2">
-                {marca.nome}
+                {lista.nomeMarca}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {marca.quantidade} veículo(s)
+                {lista.quantidade} veículo(s)
               </Typography>
               <Typography variant="body2" component="p">
-                Valor total dos veículos: <b>{marca.valorTotal}</b>
+                Valor total dos veículos: <b>{lista.somatoria}</b>
               </Typography>
             </CardContent>
           </Card>
