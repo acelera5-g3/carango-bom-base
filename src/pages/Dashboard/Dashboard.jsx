@@ -45,7 +45,13 @@ export default function Dashboard() {
                 {lista.quantidade} veículo(s)
               </Typography>
               <Typography variant="body2" component="p">
-                Valor total dos veículos: <b>{lista.somatoria}</b>
+                Valor total dos veículos:
+                <b style={{ paddingLeft: 3 }}>
+                  {lista.somatoria.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
+                </b>
               </Typography>
             </CardContent>
           </Card>
