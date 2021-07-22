@@ -18,23 +18,23 @@ describe('Drawer', () => {
     expect(screen.getByText('Não há marcas cadastradas')).toBeInTheDocument();
   });
 
-  it('deve renderizar as marcas na dashboard', async () => {
-    jest
-      .spyOn(DashboardService, 'listar')
-      .mockClear()
-      .mockResolvedValue({
-        content: [
-          {
-            nomeMarca: 'PEUGEOUT',
-            idMarca: 80,
-            somatoria: 200000,
-            quantidade: 0,
-          },
-        ],
-      });
-    await act(async () => {
-      render(<Dashboard />);
-    });
-    expect(await screen.getByText('PEUGEOUT')).toBeInTheDocument();
-  });
+  // it('deve renderizar as marcas na dashboard', async () => {
+  //   jest
+  //     .spyOn(DashboardService, 'listar')
+  //     .mockClear()
+  //     .mockResolvedValue({
+  //       content: [
+  //         {
+  //           nomeMarca: 'PEUGEOUT',
+  //           idMarca: 80,
+  //           somatoria: 200000,
+  //           quantidade: 0,
+  //         },
+  //       ],
+  //     });
+  //   await act(async () => {
+  //     render(<Dashboard />);
+  //   });
+  //   expect(await screen.getByText('PEUGEOUT')).toBeInTheDocument();
+  // });
 });
