@@ -3,7 +3,7 @@ import request from '../Request/RequestService';
 const VeiculoService = {
   cadastrar(veiculo) {
     return request(
-      `${process.env.REACT_APP_API_URL}/veiculos/`,
+      `${process.env.REACT_APP_API_URL}/veiculos`,
       'POST',
       veiculo
     ).then((r) => r.json());

@@ -1,65 +1,116 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { Route, Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import { act } from 'react-dom/test-utils';
 import ListagemVeiculos from './ListagemVeiculos';
 import VeiculoService from '../../../services/Veiculo/VeiculoService';
 
-describe('ListagemVeiculos', () => {
+const history = createMemoryHistory();
+let path;
+
+describe('Listagemveiculo', () => {
+  const createInstance = async () => {
+    act(async () => {
+      await render(
+        <Router history={history}>
+          <Route path={path}>
+            <ListagemVeiculos />
+          </Route>
+        </Router>
+      );
+    });
+  };
   beforeEach(() => {
     jest.spyOn(VeiculoService, 'listar').mockResolvedValue({
       content: [
         {
-          id: 74,
-          marca: { id: 1, nome: 'HONDA' },
-          modelo: 'Honda Civic',
+          id: 1,
+          modelo: 'VEHICLE1',
+          ano: 2132,
+          valor: 32323,
+          marca: { id: 3, nome: 'VEHICLE1 BRAND' },
+        },
+        {
+          id: 2,
+          modelo: 'VEHICLE2',
           ano: 2020,
-          valor: 'R$ 70.000,000',
+          valor: 40000,
+          marca: { id: 3, nome: 'VEHICLE2 BRAND' },
         },
       ],
     });
   });
 
-  it('Deve listar os veiculos', async () => {
-    await act(async () => {
-      render(<ListagemVeiculos />);
-    });
-
-    expect(await screen.getByText('HONDA')).toBeInTheDocument();
+  it('Deve instanciar o componente com veiculos', async () => {
+    createInstance();
+    expect(await screen.findByText('VEHICLE1')).toBeInTheDocument();
   });
 
-  // it.skip('Deve excluir uma Veiculo', async () => {
-  //   jest.spyOn(global, 'fetch').mockResolvedValue({
-  //     json: jest.fn().mockResolvedValue([
-  //       {
-  //         "id": 74,
-  //         "marca": "HONDA",
-  //         "modelo": "Honda Civic",
-  //         "ano": 2020,
-  //         "valor": "R$ 70.000,000"
-  //       },
-  //       {
-  //         "id": 4,
-  //         "marca": "HYUNDAY",
-  //         "modelo": "HB20",
-  //         "ano": 2020,
-  //         "valor": "R$ 56.000,000"
-  //       }
-  //     ]),
-  //   });
-  //   render(<ListagemVeiculos />);
-  //   const fiatText = await screen.findByText('HONDA');
-  //   fireEvent.click(fiatText);
-  //   const botaoExcluir = screen.getByTestId('botao-excluir');
-  //   fireEvent.click(botaoExcluir);
-  //   jest.spyOn(global, 'fetch').mockResolvedValue({
-  //     json: jest.fn().mockResolvedValue([{
-  //       "id": 4,
-  //       "marca": "HYUNDAY",
-  //       "modelo": "HB20",
-  //       "ano": 2020,
-  //       "valor": "R$ 56.000,000"
-  //     }]),
-  //   });
-  //   expect(await screen.findByText('HONDA')).not.toBeInTheDocument();
-  // });
+  it('Deve alterar um veiculo', async () => {
+    createInstance();
+    const veiculo = await screen.findByText('VEHICLE1');
+    const btnAlterar = screen.getByTestId('botao-alterar');
+    fireEvent.click(veiculo);
+    fireEvent.click(btnAlterar);
+    expect(history.location.pathname).toBe('/alteracao-veiculos/1');
+  });
+
+  it('Deve excluir uma veiculo', async () => {
+    jest.spyOn(VeiculoService, 'excluir').mockResolvedValue({
+      id: 1,
+      modelo: 'VEHICLE1',
+      ano: 2132,
+      valor: 32323,
+      marca: { id: 3, nome: 'VEHICLE1 BRAND' },
+    });
+    jest
+      .spyOn(VeiculoService, 'listar')
+      .mockClear()
+      .mockResolvedValueOnce({
+        content: [
+          {
+            id: 1,
+            modelo: 'VEHICLE1',
+            ano: 2132,
+            valor: 32323,
+            marca: { id: 3, nome: 'VEHICLE1 BRAND' },
+          },
+          {
+            id: 2,
+            modelo: 'VEHICLE2',
+            ano: 2020,
+            valor: 40000,
+            marca: { id: 3, nome: 'VEHICLE2 BRAND' },
+          },
+        ],
+      })
+      .mockResolvedValue({
+        content: [
+          {
+            id: 2,
+            modelo: 'VEHICLE2',
+            ano: 2020,
+            valor: 40000,
+            marca: { id: 3, nome: 'VEHICLE1 BRAND' },
+          },
+        ],
+      });
+    createInstance();
+
+    const fiatText = await screen.findByText('VEHICLE1');
+    const botaoExcluir = screen.getByTestId('botao-excluir');
+
+    fireEvent.click(fiatText);
+    fireEvent.click(botaoExcluir);
+
+    expect(await screen.findByText('VEHICLE1')).not.toBeInTheDocument();
+  });
+
+  it('Deve cadastrar uma veiculo', async () => {
+    createInstance();
+    const btnIncluir = screen.getByTestId('botao-incluir');
+    fireEvent.click(btnIncluir);
+    expect(history.location.pathname).toBe('/cadastro-veiculos');
+  });
 });

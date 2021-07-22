@@ -1,7 +1,9 @@
+/* eslint-disable react/display-name */
 import { makeStyles, Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import React from 'react';
 import PropTypes from 'prop-types';
+import SemItens from './SemItens';
 
 function Listagem({
   linhas,
@@ -11,6 +13,7 @@ function Listagem({
   incluir,
   alterar,
   excluir,
+  loading,
 }) {
   const useStyles = makeStyles(() => ({
     actionsToolbar: {
@@ -33,7 +36,11 @@ function Listagem({
         onRowSelected={(gridSelection) => onRowSelected(gridSelection.data)}
         pageSize={5}
         rowsPerPageOptions={[5, 10, 20]}
+        components={{
+          NoRowsOverlay: SemItens,
+        }}
         pagination
+        loading={loading}
       />
 
       <div className={classes.actionsToolbar}>
@@ -79,6 +86,7 @@ Listagem.propTypes = {
   incluir: PropTypes.func,
   alterar: PropTypes.func,
   excluir: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default Listagem;

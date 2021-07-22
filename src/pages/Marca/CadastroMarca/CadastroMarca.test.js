@@ -12,13 +12,15 @@ describe('CadastroMarca', () => {
   let path;
 
   const createInstance = async () =>
-    render(
-      <Router history={history}>
-        <Route path={path}>
-          <CadastroMarca />
-        </Route>
-      </Router>
-    );
+    act(async () => {
+      await render(
+        <Router history={history}>
+          <Route path={path}>
+            <CadastroMarca />
+          </Route>
+        </Router>
+      );
+    });
 
   const submitEvent = async () => {
     await createInstance();
@@ -106,12 +108,23 @@ describe('CadastroMarca', () => {
       path = '/alteracao-marca/:id';
       history.push(route);
       pushSpy = jest.spyOn(history, 'push');
+
+      jest
+        .spyOn(MarcaService, 'consultar')
+        .mockClear()
+        .mockResolvedValue({
+          content: [
+            {
+              id: 1,
+              nome: 'PEUGEOUT',
+            },
+          ],
+        });
     });
 
-    // eslint-disable-next-line jest/no-commented-out-tests
-    // it(('Deve instanciar o componente'), () => {
-    //   expect(createInstance()).toBeDefined();
-    // });
+    it('Deve instanciar o componente', () => {
+      expect(createInstance()).toBeDefined();
+    });
 
     it('Deve enviar o form', async () => {
       await submitEvent();

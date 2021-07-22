@@ -13,6 +13,7 @@ const colunas = [
 const ListagemVeiculos = () => {
   const [veiculos, setVeiculos] = useState([]);
   const [veiculoSelecionado, setVeiculoSelecionado] = useState();
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
 
   function alterar() {
@@ -22,22 +23,27 @@ const ListagemVeiculos = () => {
   }
 
   function excluir() {
-    VeiculoService.excluir(veiculoSelecionado).then(() => {
-      setVeiculoSelecionado(null);
-      carregarVeiculos();
-    });
+    setLoading(true);
+    VeiculoService.excluir(veiculoSelecionado)
+      .then(() => {
+        setVeiculoSelecionado(null);
+        carregarVeiculos();
+      })
+      .finally(() => setLoading(false));
   }
 
   useEffect(() => carregarVeiculos(), []);
 
   function carregarVeiculos() {
-    VeiculoService.listar().then((dados) => {
-      const listaVeiculos = dados?.content?.map((veiculo) => {
-        const { id, modelo, ano, valor, marca } = veiculo;
-        return { id, modelo, ano, valor, marca: marca.nome };
-      });
-      setVeiculos(listaVeiculos);
-    });
+    VeiculoService.listar()
+      .then((dados) => {
+        const listaVeiculos = dados?.content?.map((veiculo) => {
+          const { id, modelo, ano, valor, marca } = veiculo;
+          return { id, modelo, ano, valor, marca: marca.nome };
+        });
+        setVeiculos(listaVeiculos);
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -49,6 +55,7 @@ const ListagemVeiculos = () => {
       linhas={veiculos}
       rowSelected={veiculoSelecionado}
       onRowSelected={setVeiculoSelecionado}
+      loading={loading}
     />
   );
 };

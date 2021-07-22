@@ -8,6 +8,8 @@ const colunas = [{ field: 'email', headerName: 'E-mail', width: 200 }];
 const ListagemUsuario = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioSelecionado, setUsuarioSelecionado] = useState();
+  const [loading, setLoading] = useState(true);
+
   const history = useHistory();
 
   function alterar() {
@@ -17,17 +19,22 @@ const ListagemUsuario = () => {
   }
 
   function excluir() {
-    UsuarioService.excluir(usuarioSelecionado).then(() => {
-      setUsuarioSelecionado(null);
-      carregarUsuarios();
-    });
+    setLoading(true);
+    UsuarioService.excluir(usuarioSelecionado)
+      .then(() => {
+        setUsuarioSelecionado(null);
+        carregarUsuarios();
+      })
+      .finally(() => setLoading(false));
   }
 
   // eslint-disable-next-line
   useEffect(() => carregarUsuarios(), []);
 
   function carregarUsuarios() {
-    UsuarioService.listar().then((dados) => setUsuarios(dados.content));
+    UsuarioService.listar()
+      .then((dados) => setUsuarios(dados.content))
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -39,6 +46,7 @@ const ListagemUsuario = () => {
       linhas={usuarios}
       rowSelected={usuarioSelecionado}
       onRowSelected={setUsuarioSelecionado}
+      loading={loading}
     />
   );
 };
