@@ -85,7 +85,7 @@ const CadastroVeiculos = () => {
           >
             <option value="0">Nenhuma</option>
             {marcas?.map((marca) => (
-              <option key={marca.id} value={marca.id}>
+              <option key={marca.id} value={marca.id} data-testid={marca.nome}>
                 {marca.nome}
               </option>
             ))}
