@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import userEvent from '@testing-library/user-event';
 import CadastroVeiculos from './CadastroVeiculos';
 import MarcaService from '../../../services/Marca/MarcaService';
 import { changeInput } from '../../../tests/testing';
@@ -10,7 +9,6 @@ import VeiculoService from '../../../services/Veiculo/VeiculoService';
 
 describe('CadastroVeiculos', () => {
   let history;
-  let pushSpy;
   let route;
   let path;
 
@@ -40,7 +38,6 @@ describe('CadastroVeiculos', () => {
       route = '/cadastro-veiculos';
       path = '/cadastro-veiculos';
       history.push(route);
-      pushSpy = jest.spyOn(history, 'push');
     });
 
     it('Deve mudar os valores dos inputs', async () => {
@@ -70,7 +67,6 @@ describe('CadastroVeiculos', () => {
       route = '/alteracao-veiculos/1';
       path = '/alteracao-veiculos/:id';
       history.push(route);
-      pushSpy = jest.spyOn(history, 'push');
 
       jest.spyOn(VeiculoService, 'consultar').mockResolvedValue({
         ano: 2132,
