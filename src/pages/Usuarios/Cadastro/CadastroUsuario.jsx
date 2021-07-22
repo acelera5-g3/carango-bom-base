@@ -4,6 +4,7 @@ import {
   Snackbar,
   Typography,
   makeStyles,
+  Box,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState, useEffect } from 'react';
@@ -17,8 +18,10 @@ const useStyles = makeStyles(() => ({
     fontSize: '2rem',
     paddingBottom: '20px',
   },
-  btnCancelar: {
-    marginRight: '10px',
+  boxBtns: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    marginTop: '1rem',
   },
 }));
 
@@ -144,27 +147,27 @@ const CadastroUsuario = () => {
           margin="normal"
           data-testid="inputConfirmacaoSenha"
         />
+        <Box className={classes.boxBtns}>
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+            data-testid="voltarButton"
+            onClick={() => history.push('/usuarios')}
+          >
+            Voltar
+          </Button>
 
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          data-testid="submitButton"
-          disabled={!possoEnviar()}
-        >
-          Cadastrar
-        </Button>
-
-        <Button
-          variant="contained"
-          color="secondary"
-          type="submit"
-          data-testid="voltarButton"
-          onClick={() => history.push('/usuarios')}
-        >
-          Voltar
-        </Button>
-
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            data-testid="submitButton"
+            disabled={!possoEnviar()}
+          >
+            Cadastrar
+          </Button>
+        </Box>
         <Snackbar
           data-testeid="snackbar"
           open={alert}

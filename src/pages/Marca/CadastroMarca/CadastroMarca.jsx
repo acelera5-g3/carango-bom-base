@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
 
 function CadastroMarca() {
   const [marca, setMarca] = useState('');
+
   const classes = useStyles();
 
   const history = useHistory();

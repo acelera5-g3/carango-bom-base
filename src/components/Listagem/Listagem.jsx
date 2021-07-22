@@ -1,7 +1,18 @@
 import { makeStyles, Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { AuthContext } from '../../hooks/AuthContext';
+
+const useStyles = makeStyles(() => ({
+  actionsToolbar: {
+    float: 'right',
+  },
+  actions: {
+    top: '10px',
+    marginLeft: '10px',
+  },
+}));
 
 function Listagem({
   linhas,
@@ -12,16 +23,8 @@ function Listagem({
   alterar,
   excluir,
 }) {
-  const useStyles = makeStyles(() => ({
-    actionsToolbar: {
-      float: 'right',
-    },
-    actions: {
-      top: '10px',
-      marginLeft: '10px',
-    },
-  }));
   const classes = useStyles();
+  const [logado] = useContext(AuthContext);
 
   return (
     <div style={{ width: '100%' }} data-testid="data-grid">
@@ -35,38 +38,39 @@ function Listagem({
         rowsPerPageOptions={[5, 10, 20]}
         pagination
       />
-
-      <div className={classes.actionsToolbar}>
-        <Button
-          className={classes.actions}
-          variant="contained"
-          color="primary"
-          data-testid="botao-incluir"
-          onClick={incluir}
-        >
-          Incluir
-        </Button>
-        <Button
-          className={classes.actions}
-          variant="contained"
-          color="primary"
-          data-testid="botao-alterar"
-          disabled={!rowSelected}
-          onClick={alterar}
-        >
-          Alterar
-        </Button>
-        <Button
-          className={classes.actions}
-          variant="contained"
-          color="secondary"
-          disabled={!rowSelected}
-          data-testid="botao-excluir"
-          onClick={excluir}
-        >
-          Excluir
-        </Button>
-      </div>
+      {logado && (
+        <div className={classes.actionsToolbar}>
+          <Button
+            className={classes.actions}
+            variant="contained"
+            color="primary"
+            data-testid="botao-incluir"
+            onClick={incluir}
+          >
+            Incluir
+          </Button>
+          <Button
+            className={classes.actions}
+            variant="contained"
+            color="primary"
+            data-testid="botao-alterar"
+            disabled={!rowSelected}
+            onClick={alterar}
+          >
+            Alterar
+          </Button>
+          <Button
+            className={classes.actions}
+            variant="contained"
+            color="secondary"
+            disabled={!rowSelected}
+            data-testid="botao-excluir"
+            onClick={excluir}
+          >
+            Excluir
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

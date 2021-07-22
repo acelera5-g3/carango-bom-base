@@ -4,6 +4,8 @@ import {
   Snackbar,
   NativeSelect,
   FormHelperText,
+  Box,
+  makeStyles,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState, useEffect } from 'react';
@@ -14,7 +16,20 @@ import VeiculoService from '../../../services/Veiculo/VeiculoService';
 import { validarPreenchimento } from '../../Usuarios/validacoes';
 import useErros from '../../../hooks/useErros';
 
+const useStyles = makeStyles(() => ({
+  formControl: {
+    width: '100%',
+  },
+  boxBtns: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    marginTop: '1rem',
+  },
+}));
+
 const CadastroVeiculos = () => {
+  const classes = useStyles();
+
   const [marcas, setMarcas] = useState([]);
   const [veiculo, setVeiculo] = useState({
     marca: { id: 0, nome: '' },
@@ -71,7 +86,10 @@ const CadastroVeiculos = () => {
           }
         }}
       >
-        <FormControl sx={{ m: 1, minWidth: 80 }}>
+        <FormControl
+          sx={{ m: 1, minWidth: 80 }}
+          className={classes.formControl}
+        >
           <label htmlFor="select-input-marca">Marca</label>
           <NativeSelect
             name="marca"
@@ -137,26 +155,27 @@ const CadastroVeiculos = () => {
             data-testid="inputValor"
           />
 
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            data-testid="submitButton"
-            disabled={!possoEnviar()}
-          >
-            Cadastrar
-          </Button>
+          <Box className={classes.boxBtns}>
+            <Button
+              variant="contained"
+              color="secondary"
+              type="submit"
+              data-testid="voltarButton"
+              onClick={() => history.push('/veiculos')}
+            >
+              Voltar
+            </Button>
 
-          <Button
-            variant="contained"
-            color="secondary"
-            type="submit"
-            data-testid="voltarButton"
-            onClick={() => history.push('/veiculos')}
-          >
-            Voltar
-          </Button>
-
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              data-testid="submitButton"
+              disabled={!possoEnviar()}
+            >
+              Cadastrar
+            </Button>
+          </Box>
           <Snackbar
             data-testeid="snackbar"
             open={alert}

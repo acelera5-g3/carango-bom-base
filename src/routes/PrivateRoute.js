@@ -5,9 +5,10 @@ import { AuthContext } from '../hooks/AuthContext';
 // eslint-disable-next-line react/prop-types
 export default function PrivateRoute({ component }) {
   const [logado] = useContext(AuthContext);
-  console.log(logado);
+
   if (logado) {
     return component;
   }
+  
   return <Redirect to="/login" />;
 }

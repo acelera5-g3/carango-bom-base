@@ -57,13 +57,14 @@ function MenuLateral(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [, setLogado] = useContext(AuthContext);
+  const [logado, setLogado] = useContext(AuthContext);
   const history = useHistory();
 
   const dadosMenu = [
     { texto: 'Entrar', url: '/login' },
     { texto: 'Veículos', url: '/veiculos' },
   ];
+
   const dadosMenuLogado = [
     { texto: 'Marcas', url: '/' },
     { texto: 'Usuários', url: '/usuarios' },
@@ -99,23 +100,26 @@ function MenuLateral(props) {
         ))}
       </List>
       <Divider />
-      <List>
-        {dadosMenuLogado.map((item, index) => (
-          <ListItem
-            button
-            key={item.texto}
-            onClick={() => {
-              history.push(item.url);
-              item.callback && item.callback();
-            }}
-          >
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={item.texto} />
-          </ListItem>
-        ))}
-      </List>
+
+      {logado && (
+        <List>
+          {dadosMenuLogado.map((item, index) => (
+            <ListItem
+              button
+              key={item.texto}
+              onClick={() => {
+                history.push(item.url);
+                item.callback && item.callback();
+              }}
+            >
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={item.texto} />
+            </ListItem>
+          ))}
+        </List>
+      )}
     </div>
   );
 

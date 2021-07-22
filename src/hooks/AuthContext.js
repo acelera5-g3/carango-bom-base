@@ -18,8 +18,9 @@ export const AuthProvider = (props) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    
     token ? setLogado(true) : setLogado(false);
-    // handleValidarToken(token);
+
   }, []);
 
   return (
