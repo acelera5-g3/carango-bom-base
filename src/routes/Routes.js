@@ -1,55 +1,67 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import PrivateRoute  from './PrivateRoute';
 import Dashboard from '../pages/Dashboard';
 import { CadastroMarca, ListagemMarcas } from '../pages/Marca';
-import { Cadastro, ListagemUsuario, Login } from '../pages/Usuarios';
+import { CadastroUsuario, ListagemUsuario, Login } from '../pages/Usuarios';
 import { CadastroVeiculos, ListagemVeiculos } from '../pages/Veiculos';
 
 function Routes() {
   const listaDeRotas = [
     {
       "path": "/cadastro-marca",
-      "component" : <CadastroMarca/>,
+      "component" : <CadastroMarca />,
+      "privada": true,
     },
     {
       "path": "/alteracao-marca/:id",
-      "component" : <CadastroMarca/>
+      "component" : <CadastroMarca />,
+      "privada": false,
     },
     {
       "path": "/cadastro-usuario",
-      "component" : <CadastroMarca/>
+      "component" : <CadastroUsuario />,
+      "privada": false,
     },
     {
       "path": "/alteracao-usuario/:id",
-      "component" : <CadastroMarca/>
+      "component" : <CadastroUsuario />,
+      "privada": true,
     },
     {
       "path": "/login",
-      "component" : <Login/>
-    },
-    {
-      "path": "/cadastro",
-      "component" : <Cadastro/>
+      "component" : <Login/>,
+      "privada": false,
     },
     {
       "path": "/usuarios",
-      "component" : <ListagemUsuario/>
+      "component" : <ListagemUsuario />,
+      "privada": true,
     },
     {
       "path": "/veiculos",
-      "component" : <ListagemVeiculos/>
+      "component" : <ListagemVeiculos />,
+      "privada": false,
     },
     {
       "path": "/dashboard",
-      "component" : <Dashboard/>
+      "component" : <Dashboard />,
+      "privada": true,
     },
     {
       "path": "/cadastro-veiculos",
-      "component" : <CadastroVeiculos/>
+      "component" : <CadastroVeiculos />,
+      "privada": true,
+    },
+    {
+      "path": '/alteracao-veiculos/:id',
+      "component": <CadastroVeiculos />,
+      "privada": true
     },
     {
       "path": "/",
       "component" : <ListagemMarcas/>,
+      "privada": false,
       "exact": true
     },
   ]
@@ -57,10 +69,10 @@ function Routes() {
 
   return (
     listaDeRotas.map(route => (
-      <Route path={route.path} key={route.path} exact={route?.exact}>
-          {route.component}
-      </Route>
-    ))
+        <Route path={route.path} key={route.path} exact={route?.exact}>
+          {route.privada ? <PrivateRoute component={route.component}/> : route.component}
+        </Route>
+      ))
   );
 }
 

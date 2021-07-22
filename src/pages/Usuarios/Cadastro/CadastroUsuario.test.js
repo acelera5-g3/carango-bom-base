@@ -3,10 +3,10 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import AuthService from '../../../services/Auth/AuthService';
-import { Cadastro } from '../index';
+import { CadastroUsuario } from '../index';
 import { changeInput, historyMock, testesUsario } from '../../../tests';
 
-describe('Cadastro', () => {
+describe('Cadastro Usuario', () => {
   const history = createMemoryHistory();
   history.push('/cadastro');
 
@@ -21,7 +21,7 @@ describe('Cadastro', () => {
     render(
       <Router history={history}>
         <Route path="/cadastro">
-          <Cadastro />
+          <CadastroUsuario />
         </Route>
       </Router>
     );

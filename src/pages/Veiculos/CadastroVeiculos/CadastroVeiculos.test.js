@@ -12,7 +12,7 @@ describe('ListagemVeiculos', () => {
   });
 
   it('Verificar se as opções foram renderizadas', async () => {
-    jest.spyOn(MarcaService, 'listar').mockResolvedValue([
+    jest.spyOn(MarcaService, 'listar').mockResolvedValue({content: [
       {
         id: 74,
         nome: 'HONDA',
@@ -21,7 +21,7 @@ describe('ListagemVeiculos', () => {
         id: 4,
         nome: 'HYUNDAI',
       },
-    ]);
+    ]});
 
     await act(async () => {
       await render(<CadastroVeiculos />);
@@ -45,9 +45,7 @@ describe('ListagemVeiculos', () => {
     await act(async () => {
       await render(<CadastroVeiculos />);
     });
-
-    expect(true).toBe(true);
-
+    
     const inputs = [
       {id: 'inputModelo', value: 'modelo'}, 
       {id: 'inputAno', value: '2010'}, 

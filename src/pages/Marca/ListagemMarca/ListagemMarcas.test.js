@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import { act } from 'react-dom/test-utils';
 import ListagemMarcas from './ListagemMarcas';
 import MarcaService from '../../../services/Marca/MarcaService';
 
@@ -20,15 +21,19 @@ describe('ListagemMarcas', () => {
   });
 
   beforeEach(() => {
-    jest.spyOn(MarcaService, 'listar').mockResolvedValue([
-      { id: 1, nome: 'CHEVROLET' },
-      { id: 2, nome: 'FIAT' },
-    ]);
+    jest.spyOn(MarcaService, 'listar').mockResolvedValue({
+      content: [
+        { id: 1, nome: 'CHEVROLET' },
+        { id: 2, nome: 'FIAT' },
+      ],
+    });
   });
 
-  it('Deve instanciar o componente', () => {
-    const { container } = render(<ListagemMarcas />);
-    expect(container).toBeDefined();
+  it('Deve instanciar o componente', async () => {
+    await act(async () => {
+      await render(<ListagemMarcas />);
+    });
+    expect(await screen.findByText('CHEVROLET')).toBeInTheDocument();
   });
 
   // it('Deve mostrar lista vazia quando não existir retorno da api', async () => {

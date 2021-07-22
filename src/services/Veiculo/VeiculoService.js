@@ -1,36 +1,40 @@
+import request from '../Request/RequestService';
+
 const VeiculoService = {
   cadastrar(veiculo) {
-    return fetch('http://localhost:3333/veiculos', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify(veiculo),
-    }).then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/veiculos/`,
+      'POST',
+      veiculo
+    ).then((r) => r.json());
   },
 
   alterar(veiculo) {
-    return fetch(`http://localhost:3333/veiculos/${veiculo.id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'PUT',
-      body: JSON.stringify(veiculo),
-    }).then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/veiculos/${veiculo.id}`,
+      'PUT',
+      veiculo
+    ).then((r) => r.json());
   },
 
   consultar(id) {
-    return fetch(`http://localhost:3333/veiculos/${id}`).then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/veiculos/${id}`,
+      'GET'
+    ).then((r) => r.json());
   },
 
   listar() {
-    return fetch('http://localhost:3333/veiculos').then((r) => r.json());
+    return request(`${process.env.REACT_APP_API_URL}/veiculos`, 'GET').then(
+      (r) => r.json()
+    );
   },
 
   excluir(veiculo) {
-    return fetch(`http://localhost:3333/veiculos/${veiculo.id}`, {
-      method: 'DELETE',
-    }).then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/veiculos/${veiculo.id}`,
+      'DELETE'
+    ).then((r) => r.json());
   },
 };
 

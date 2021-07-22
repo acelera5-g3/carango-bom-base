@@ -1,33 +1,30 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import ListagemVeiculos from './ListagemVeiculos';
+import VeiculoService from '../../../services/Veiculo/VeiculoService';
 
 describe('ListagemVeiculos', () => {
-  it('Deve listar os veiculos', () => {
-    const { container } = render(<ListagemVeiculos />);
-    expect(container).toBeDefined();
-  });
-
-  it('Deve mostrar lista vazia quando não existir retorno da api', async () => {
-    await render(<ListagemVeiculos />);
-    const check = await screen.getByText('No rows');
-    expect(check).toBeInTheDocument();
-  });
-
-  it('Deve mostrar lista com itens', async () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn().mockResolvedValue([
+  beforeEach(() => {
+    jest.spyOn(VeiculoService, 'listar').mockResolvedValue({
+      content: [
         {
           id: 74,
-          marca: 'HONDA',
+          marca: { id: 1, nome: 'HONDA' },
           modelo: 'Honda Civic',
           ano: 2020,
           valor: 'R$ 70.000,000',
         },
-      ]),
+      ],
     });
-    render(<ListagemVeiculos />);
-    expect(await screen.findByText('HONDA')).toBeInTheDocument();
+  });
+
+  it('Deve listar os veiculos', async () => {
+    await act(async () => {
+      render(<ListagemVeiculos />);
+    });
+
+    expect(await screen.getByText('HONDA')).toBeInTheDocument();
   });
 
   // it.skip('Deve excluir uma Veiculo', async () => {

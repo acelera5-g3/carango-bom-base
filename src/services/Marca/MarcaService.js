@@ -1,37 +1,39 @@
+import request from '../Request/RequestService';
+
 const MarcaService = {
   cadastrar(marca) {
-    return fetch('http://localhost:3333/marcas/', {
-      headers:{ 
-        "Content-Type": "application/json"
-      },
-      method: 'POST',
-      body: JSON.stringify(marca),
-    }).then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/marcas/`,
+      'POST',
+      marca
+    ).then((r) => r.json());
   },
 
   alterar(marca) {
-    return fetch(`http://localhost:3333/marcas/${marca.id}`, {
-      headers:{ 
-        "Content-Type": "application/json"
-      },
-      method: 'PUT',
-      body: JSON.stringify(marca),
-    }).then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/marcas/${marca.id}`,
+      'PUT',
+      marca
+    ).then((r) => r.json());
   },
 
   consultar(id) {
-    return fetch(`http://localhost:3333/marcas/${id}`).then((r) => r.json());
+    return request(`${process.env.REACT_APP_API_URL}/marcas/${id}`, 'GET').then(
+      (r) => r.json()
+    );
   },
 
   listar() {
-    return fetch('http://localhost:3333/marcas').then((r) => r.json());
+    return request(`${process.env.REACT_APP_API_URL}/marcas`, 'GET').then((r) =>
+      r.json()
+    );
   },
 
   excluir(marca) {
-    return fetch(`http://localhost:3333/marcas/${marca.id}`, {
-      method: 'DELETE',
-    })
-      .then((r) => r.json());
+    return request(
+      `${process.env.REACT_APP_API_URL}/marcas/${marca.id}`,
+      'DELETE'
+    ).then((r) => r.json());
   },
 };
 

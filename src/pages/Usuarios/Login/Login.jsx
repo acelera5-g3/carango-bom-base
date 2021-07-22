@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useErros from '../../../hooks/useErros';
 import AuthService from '../../../services/Auth/AuthService';
-import { validarEmail, validarSenha } from "../validacoes";
+import { validarEmail, validarSenha } from '../validacoes';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -31,8 +31,9 @@ const Login = () => {
             email,
             senha,
           })
-            .then((data) => {
-              console.log('TODO: Salvar o token!', data);
+            .then((res) => {
+              const { token } = res;
+              localStorage.setItem('token', token);
               history.push('/dashboard');
             })
             .catch(() => {
