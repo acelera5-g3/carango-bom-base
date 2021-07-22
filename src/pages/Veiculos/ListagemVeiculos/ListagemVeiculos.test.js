@@ -51,7 +51,7 @@ describe('Listagemveiculo', () => {
   });
 
   it('Deve instanciar o componente com veiculos', async () => {
-    createInstance();
+    await render(<ListagemVeiculos />);
     expect(await screen.findByText('VEHICLE1')).toBeInTheDocument();
   });
 

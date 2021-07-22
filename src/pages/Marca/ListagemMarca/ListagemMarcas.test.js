@@ -31,7 +31,7 @@ describe('ListagemMarcas', () => {
   });
 
   it('Deve instanciar o componente COM MARCAS', async () => {
-    createInstance();
+    await render(<ListagemMarcas />);
     expect(await screen.findByText('CHEVROLET')).toBeInTheDocument();
   });
 
