@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../hooks/AuthContext';
 
 const drawerWidth = 240;
 
@@ -56,6 +57,7 @@ function MenuLateral(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [, setLogado] = useContext(AuthContext);
   const history = useHistory();
 
   const dadosMenu = [
@@ -66,7 +68,14 @@ function MenuLateral(props) {
     { texto: 'Marcas', url: '/' },
     { texto: 'Usuários', url: '/usuarios' },
     { texto: 'Dashboard', url: '/dashboard' },
-    { texto: 'Sair', url: '/login' },
+    {
+      texto: 'Sair',
+      url: '/login',
+      callback: () => {
+        localStorage.clear();
+        setLogado(false);
+      },
+    },
   ];
 
   const handleDrawerToggle = () => {
@@ -95,7 +104,10 @@ function MenuLateral(props) {
           <ListItem
             button
             key={item.texto}
-            onClick={() => history.push(item.url)}
+            onClick={() => {
+              history.push(item.url);
+              item.callback && item.callback();
+            }}
           >
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}

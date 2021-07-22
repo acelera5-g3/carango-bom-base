@@ -27,7 +27,9 @@ const ListagemUsuario = () => {
   useEffect(() => carregarUsuarios(), []);
 
   function carregarUsuarios() {
-    UsuarioService.listar().then((dados) => setUsuarios(dados.content));
+    UsuarioService.listar()
+      .then((dados) => setUsuarios(dados.content))
+      .catch(() => setUsuarios([]));
   }
 
   return (

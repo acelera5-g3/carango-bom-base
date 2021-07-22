@@ -1,23 +1,30 @@
 /* eslint-disable react/prop-types */
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect, useCallback } from 'react';
 import AuthService from '../services/Auth/AuthService';
 
-export const AppContext = createContext();
+export const AuthContext = createContext();
 
+export const AuthProvider = (props) => {
+  const [logado, setLogado] = useState(true);
 
-export const AuthContext = (props) => {
-  const token = localStorage.getItem("token");
-
-  const [logado, setLogado] = useState(false);
+  const handleValidarToken = useCallback((token) => {
+    AuthService.validar(token)
+      .then(setLogado(true))
+      .catch(() => {
+        setLogado(false);
+        localStorage.clear();
+      });
+  }, []);
 
   useEffect(() => {
-    console.log('entrei', logado);
-    AuthService.validar(token).then((r) => setLogado(r));
-  }, [token])
+    const token = localStorage.getItem('token');
+    token ? setLogado(true) : setLogado(false);
+    // handleValidarToken(token);
+  }, []);
 
   return (
-    <AppContext.Provider value={[logado, setLogado]}>
+    <AuthContext.Provider value={[logado, setLogado]}>
       {props.children}
-    </AppContext.Provider>
-  )
-}
+    </AuthContext.Provider>
+  );
+};
