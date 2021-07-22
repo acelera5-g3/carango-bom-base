@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from "history";
 import ListagemMarcas from './ListagemMarcas';
@@ -7,8 +7,16 @@ import MarcaService from '../../../services/Marca/MarcaService';
 
 describe('ListagemMarcas', () => {
 
+    const history = createMemoryHistory();
+
+    const createInstance = () => render(
+        <Router history={history}>
+            <ListagemMarcas />
+        </Router>);
+
     beforeEach(() => {
         jest.spyOn(MarcaService, 'listar')
+            .mockClear()
             .mockResolvedValue({
                 content: [
                     {id: 1, nome: 'CHEVROLET'},
@@ -17,21 +25,19 @@ describe('ListagemMarcas', () => {
             });
     });
 
-    it('Deve instanciar o componente COM MARCAS', async () => {
-      const { findByText } = render(<ListagemMarcas/>);
-      expect(await findByText('CHEVROLET')).toBeInTheDocument();
+    it('Deve instanciar o componente com marcas', async () => {
+        await act( async () => {
+            await createInstance();
+        });
+      expect(await screen.findByText(/CHEVROLET/i)).toBeInTheDocument();
     });
 
-    /* it('Deve alterar uma marca', async () => {
-      const history = createMemoryHistory();
-      const { getByTestId, findByText } = render(
-          <Router history={history}>
-            <ListagemMarcas />
-          </Router>);
-      const marca = await findByText('FIAT');
-      const btnAlterar = getByTestId('botao-alterar');
-      fireEvent.click(marca);
-      fireEvent.click(btnAlterar);
+     /* it('Deve alterar uma marca', async () => {
+
+      await createInstance();
+      fireEvent.click(await screen.findByText(/FIAT/i));
+      fireEvent.click(screen.getByTestId('botao-alterar'));
+
       expect(history.location.pathname).toBe('/alteracao-marca/2');
     }); */
 
