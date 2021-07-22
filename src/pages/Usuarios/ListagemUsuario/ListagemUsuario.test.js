@@ -31,7 +31,7 @@ describe('ListagemUsuario', () => {
   });
 
   it('Deve instanciar o componente com usuarios', async () => {
-    createInstance();
+    await render(<ListagemUsuario />);
     expect(await screen.findByText('teste@teste.com')).toBeInTheDocument();
   });
 

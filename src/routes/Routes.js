@@ -11,7 +11,7 @@ function Routes() {
     {
       path: '/cadastro-marca',
       component: <CadastroMarca />,
-      privada: false,
+      privada: true,
     },
     {
       path: '/alteracao-marca/:id',
@@ -26,7 +26,7 @@ function Routes() {
     {
       path: '/alteracao-usuario/:id',
       component: <CadastroUsuario />,
-      privada: false,
+      privada: true,
     },
     {
       path: '/login',
@@ -36,7 +36,7 @@ function Routes() {
     {
       path: '/usuarios',
       component: <ListagemUsuario />,
-      privada: false,
+      privada: true,
     },
     {
       path: '/veiculos',
@@ -46,17 +46,17 @@ function Routes() {
     {
       path: '/dashboard',
       component: <Dashboard />,
-      privada: false,
+      privada: true,
     },
     {
       path: '/cadastro-veiculos',
       component: <CadastroVeiculos />,
-      privada: false,
+      privada: true,
     },
     {
       path: '/alteracao-veiculos/:id',
       component: <CadastroVeiculos />,
-      privada: false,
+      privada: true,
     },
     {
       path: '/',

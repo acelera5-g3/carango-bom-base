@@ -1,23 +1,31 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Route, Router } from 'react-router-dom';
+import { Route, MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { act } from 'react-dom/test-utils';
 import ListagemVeiculos from './ListagemVeiculos';
 import VeiculoService from '../../../services/Veiculo/VeiculoService';
 
 const history = createMemoryHistory();
-let path;
+const path = '/veiculos';
+let route;
+let testHistory;
+let testLocation;
 
 describe('Listagemveiculo', () => {
   const createInstance = async () => {
     act(async () => {
       await render(
-        <Router history={history}>
-          <Route path={path}>
-            <ListagemVeiculos />
-          </Route>
-        </Router>
+        <MemoryRouter initialEntries={[path]}>
+          <Route
+            path={path}
+            render={({ history, location }) => {
+              testHistory = history;
+              testLocation = location;
+              return <ListagemVeiculos />;
+            }}
+          ></Route>
+        </MemoryRouter>
       );
     });
   };
@@ -53,7 +61,8 @@ describe('Listagemveiculo', () => {
     const btnAlterar = screen.getByTestId('botao-alterar');
     fireEvent.click(veiculo);
     fireEvent.click(btnAlterar);
-    expect(history.location.pathname).toBe('/alteracao-veiculos/1');
+    console.log(testLocation);
+    expect(testHistory.location.pathname).toBe('/alteracao-veiculos/1');
   });
 
   it('Deve excluir uma veiculo', async () => {
@@ -111,6 +120,6 @@ describe('Listagemveiculo', () => {
     createInstance();
     const btnIncluir = screen.getByTestId('botao-incluir');
     fireEvent.click(btnIncluir);
-    expect(history.location.pathname).toBe('/cadastro-veiculos');
+    expect(testHistory.location.pathname).toBe('/cadastro-veiculos');
   });
 });
