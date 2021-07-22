@@ -55,7 +55,6 @@ const CadastroVeiculos = () => {
           event.preventDefault();
           if (possoEnviar()) {
             const params = {
-              // marca: { id: marcaSelecionada },
               ...veiculo,
             };
             if (id) {
@@ -80,11 +79,13 @@ const CadastroVeiculos = () => {
             value={veiculo?.marca?.id}
             onBlur={validarCampos}
             error={!erros.marca.valido}
-            onChange={(e) => setVeiculo({ ...veiculo, marca: e.target.value })}
+            onChange={(e) =>
+              setVeiculo({ ...veiculo, marca: { id: e.target.value } })
+            }
           >
             <option value="0">Nenhuma</option>
             {marcas?.map((marca) => (
-              <option key={marca.id} value={marca.id}>
+              <option key={marca.id} value={marca.id} data-testid={marca.nome}>
                 {marca.nome}
               </option>
             ))}

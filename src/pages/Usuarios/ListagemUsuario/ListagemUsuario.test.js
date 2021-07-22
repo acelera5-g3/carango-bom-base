@@ -1,42 +1,78 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { Route, Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { act } from 'react-dom/test-utils';
 import ListagemUsuario from './ListagemUsuario';
+import UsuarioService from '../../../services/UsuarioService/UsuarioService';
+
+const history = createMemoryHistory();
+let path;
 
 describe('ListagemUsuario', () => {
-  it('Deve listar os veiculos', () => {
-    const { container } = render(<ListagemUsuario />);
-    expect(container).toBeDefined();
-  });
-
-  it('Deve mostrar lista vazia quando não existir retorno da api', async () => {
-    await render(<ListagemUsuario />);
-    const check = await screen.getByText('No rows');
-    expect(check).toBeInTheDocument();
-  });
-
-  it('Deve mostrar lista com itens', async () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn().mockResolvedValue([{ id: 74, nome: 'Fernando' }]),
+  const createInstance = async () => {
+    act(async () => {
+      await render(
+        <Router history={history}>
+          <Route path={path}>
+            <ListagemUsuario />
+          </Route>
+        </Router>
+      );
     });
-    render(<ListagemUsuario />);
-    expect(await screen.findByText('Fernando')).toBeInTheDocument();
+  };
+  beforeEach(() => {
+    jest.spyOn(UsuarioService, 'listar').mockResolvedValue({
+      content: [
+        { id: 1, email: 'teste@teste.com' },
+        { id: 2, email: 'teste2@teste.com' },
+      ],
+    });
   });
 
-  // it('Deve excluir uma marca', async () => {
-  //   jest.spyOn(global, 'fetch').mockResolvedValue({
-  //     json: jest.fn().mockResolvedValue([
-  //       { id: 74, nome: 'Marcos' },
-  //       { id: 12, nome: 'Ary' },
-  //     ]),
-  //   });
-  //   render(<ListagemUsuario />);
-  //   const fiatText = await screen.findByText('Ary');
-  //   fireEvent.click(fiatText);
-  //   const botaoExcluir = screen.getByTestId('botao-excluir');
-  //   fireEvent.click(botaoExcluir);
-  //   jest.spyOn(global, 'fetch').mockResolvedValue({
-  //     json: jest.fn().mockResolvedValue([{ id: 74, nome: 'Marcos' }]),
-  //   });
-  //   expect(await screen.findByText('Ary')).not.toBeInTheDocument();
-  // });
+  it('Deve instanciar o componente com usuarios', async () => {
+    createInstance();
+    expect(await screen.findByText('teste@teste.com')).toBeInTheDocument();
+  });
+
+  it('Deve alterar um usuario', async () => {
+    createInstance();
+    const usuario = await screen.findByText('teste@teste.com');
+    const btnAlterar = screen.getByTestId('botao-alterar');
+    fireEvent.click(usuario);
+    fireEvent.click(btnAlterar);
+    expect(history.location.pathname).toBe('/alteracao-usuario/1');
+  });
+
+  it('Deve excluir uma usuario', async () => {
+    jest
+      .spyOn(UsuarioService, 'excluir')
+      .mockResolvedValue({ id: 1, email: 'teste@teste.com' });
+    jest
+      .spyOn(UsuarioService, 'listar')
+      .mockClear()
+      .mockResolvedValueOnce({
+        content: [
+          { id: 1, email: 'teste@teste.com' },
+          { id: 2, email: 'teste2@teste.com' },
+        ],
+      })
+      .mockResolvedValue({ content: [{ id: 2, email: 'teste2@teste.com' }] });
+    createInstance();
+
+    const fiatText = await screen.findByText('teste@teste.com');
+    const botaoExcluir = screen.getByTestId('botao-excluir');
+
+    fireEvent.click(fiatText);
+    fireEvent.click(botaoExcluir);
+
+    expect(await screen.findByText('teste@teste.com')).not.toBeInTheDocument();
+  });
+
+  it('Deve cadastrar uma usuario', async () => {
+    createInstance();
+    const btnIncluir = screen.getByTestId('botao-incluir');
+    fireEvent.click(btnIncluir);
+    expect(history.location.pathname).toBe('/cadastro-usuario');
+  });
 });
