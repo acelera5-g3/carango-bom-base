@@ -108,7 +108,7 @@ describe('Listagemveiculo', () => {
     await render(<ListagemVeiculos />);
 
     const fiatText = await screen.findByText('VEHICLE1');
-    const botaoExcluir = screen.getByTestId('botao-excluir');
+    const botaoExcluir = await screen.getByTestId('botao-excluir');
 
     fireEvent.click(fiatText);
     fireEvent.click(botaoExcluir);

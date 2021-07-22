@@ -61,7 +61,7 @@ describe('ListagemUsuario', () => {
     await render(<ListagemUsuario />);
 
     const fiatText = await screen.findByText('teste@teste.com');
-    const botaoExcluir = screen.getByTestId('botao-excluir');
+    const botaoExcluir = await screen.getByTestId('botao-excluir');
 
     fireEvent.click(fiatText);
     fireEvent.click(botaoExcluir);
