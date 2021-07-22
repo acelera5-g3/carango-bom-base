@@ -7,23 +7,29 @@ const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
 const ListagemMarcas = () => {
   const [marcas, setMarcas] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [marcaSelecionada, setMarcaSelecionada] = useState();
   const history = useHistory();
 
   function excluir() {
-    MarcaService.excluir(marcaSelecionada).then(() => {
-      setMarcaSelecionada(null);
-      carregarMarcas();
-    });
+    setLoading(true);
+    MarcaService.excluir(marcaSelecionada)
+      .then(() => {
+        setMarcaSelecionada(null);
+        carregarMarcas();
+      })
+      .finally(() => setLoading(false));
   }
 
   // eslint-disable-next-line
   useEffect(() => carregarMarcas(), []);
 
   function carregarMarcas() {
-    MarcaService.listar().then((dados) => {
-      setMarcas(dados.content);
-    });
+    MarcaService.listar()
+      .then((dados) => {
+        setMarcas(dados.content);
+      })
+      .finally(() => setLoading(false));
   }
 
   function alterar() {
@@ -41,6 +47,7 @@ const ListagemMarcas = () => {
       linhas={marcas}
       rowSelected={marcaSelecionada}
       onRowSelected={setMarcaSelecionada}
+      loading={loading}
     />
   );
 };

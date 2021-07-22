@@ -63,10 +63,10 @@ function MenuLateral(props) {
   const dadosMenu = [
     { texto: 'Entrar', url: '/login' },
     { texto: 'Veículos', url: '/veiculos' },
+    { texto: 'Marcas', url: '/' },
   ];
 
   const dadosMenuLogado = [
-    { texto: 'Marcas', url: '/' },
     { texto: 'Usuários', url: '/usuarios' },
     { texto: 'Dashboard', url: '/dashboard' },
     {

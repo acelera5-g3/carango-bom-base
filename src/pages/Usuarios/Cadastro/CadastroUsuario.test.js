@@ -2,9 +2,9 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import AuthService from '../../../services/Auth/AuthService';
 import { CadastroUsuario } from '../index';
 import { changeInput, historyMock, testesUsario } from '../../../tests';
+import UsuarioService from '../../../services/UsuarioService/UsuarioService';
 
 describe('Cadastro Usuario', () => {
   const history = createMemoryHistory();
@@ -56,7 +56,7 @@ describe('Cadastro Usuario', () => {
   });
 
   it('Deve enviar o Formulário com sucesso na tela de Cadastro', async () => {
-    jest.spyOn(AuthService, 'cadastrar').mockResolvedValue({
+    jest.spyOn(UsuarioService, 'cadastrar').mockResolvedValue({
       id: 1,
       email: 'teste@teste.com',
     });
@@ -67,13 +67,13 @@ describe('Cadastro Usuario', () => {
     await act(async () => {
       fireEvent.click(button);
     });
-    expect(AuthService.cadastrar).toHaveBeenCalled();
+    expect(UsuarioService.cadastrar).toHaveBeenCalled();
     expect(pushSpy).toHaveBeenCalledWith('/usuarios');
   });
 
   it('Deve dar erro ao enviar o formulário na tela de Cadastro', async () => {
     jest.setTimeout(7000);
-    jest.spyOn(AuthService, 'cadastrar').mockRejectedValue({
+    jest.spyOn(UsuarioService, 'cadastrar').mockRejectedValue({
       status: 409,
     });
     await changeInput('inputEmail', 'teste@valido.com');
@@ -83,7 +83,7 @@ describe('Cadastro Usuario', () => {
     await act(async () => {
       fireEvent.click(button);
     });
-    expect(AuthService.cadastrar).toHaveBeenCalled();
+    expect(UsuarioService.cadastrar).toHaveBeenCalled();
     expect(
       await screen.getByText('Erro ao cadastrar o usuário!')
     ).toBeInTheDocument();
