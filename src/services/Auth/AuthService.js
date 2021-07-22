@@ -1,4 +1,4 @@
-import request from '../Request/RequestService';
+import request from '../Request/Request';
 
 const AuthService = {
   login(user) {

@@ -74,36 +74,27 @@ function MenuLateral(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const Item = (item, index) => (
+      <ListItem
+          button
+          key={item.texto}
+          onClick={() => history.push(item.url)}
+      >
+        <ListItemIcon>
+          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+        </ListItemIcon>
+        <ListItemText primary={item.texto} />
+      </ListItem>
+  );
+
   const drawer = (
     <div>
       <List>
-        {dadosMenu.map((item, index) => (
-          <ListItem
-            button
-            key={item.texto}
-            onClick={() => history.push(item.url)}
-          >
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={item.texto} />
-          </ListItem>
-        ))}
+        {dadosMenu.map((item, index) => Item(item, index))}
       </List>
       <Divider />
       <List>
-        {dadosMenuLogado.map((item, index) => (
-          <ListItem
-            button
-            key={item.texto}
-            onClick={() => history.push(item.url)}
-          >
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={item.texto} />
-          </ListItem>
-        ))}
+        {dadosMenuLogado.map((item, index) => Item(item, index))}
       </List>
     </div>
   );
