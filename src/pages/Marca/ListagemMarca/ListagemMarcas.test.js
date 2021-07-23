@@ -6,7 +6,6 @@ import ListagemMarcas from './ListagemMarcas';
 import MarcaService from '../../../services/Marca/MarcaService';
 
 describe('ListagemMarcas', () => {
-
     const history = createMemoryHistory();
 
     const createInstance = () => render(

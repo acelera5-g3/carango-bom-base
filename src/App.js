@@ -36,20 +36,20 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Router>
-      <ThemeProvider theme={Theme}>
-        <div className={classes.root}>
-          <CssBaseline />
-          <MenuLateral className={classes.content}>
-            <Container component="article" maxWidth="md">
-              <Switch>
-                <Routes />
-              </Switch>
-            </Container>
-          </MenuLateral>
-        </div>
-      </ThemeProvider>
-    </Router>
+      <Router>
+        <ThemeProvider theme={Theme}>
+          <div className={classes.root}>
+            <CssBaseline />
+            <MenuLateral className={classes.content}>
+              <Container component="article" maxWidth="md">
+                <Switch>
+                  <Routes />
+                </Switch>
+              </Container>
+            </MenuLateral>
+          </div>
+        </ThemeProvider>
+      </Router>
   );
 }
 

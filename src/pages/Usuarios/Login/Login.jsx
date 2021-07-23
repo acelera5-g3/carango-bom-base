@@ -9,7 +9,6 @@ import { validarEmail, validarSenha } from '../validacoes';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-
   const [alert, setAlert] = useState(false);
 
   const history = useHistory();
