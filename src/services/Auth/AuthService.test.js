@@ -16,12 +16,12 @@ describe('AuthService', () => {
     });
 
     it('Deve Chamar a API de Login com erro',  async () => {
-      jest.spyOn(global, 'fetch').mockImplementation(() => { throw new Error('error') });
+      jest.spyOn(global, 'fetch').mockImplementation(() => { throw new Error() });
 
       expect(() => AuthService.login({
         email: 'teste@teste.com',
         senha: 'teste',
-      })).toThrow('error');
+      })).toThrow();
     });
   });
 });
