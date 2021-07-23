@@ -3,7 +3,7 @@ import request from '../Request/Request';
 const VeiculoService = {
   cadastrar(veiculo) {
     return request(
-      `${process.env.REACT_APP_API_URL}/api/veiculos`,
+      `${process.env.REACT_APP_API_URL}/veiculos`,
       'POST',
       veiculo
     ).then((r) => r.json());
@@ -11,7 +11,7 @@ const VeiculoService = {
 
   alterar(veiculo) {
     return request(
-      `${process.env.REACT_APP_API_URL}/api/veiculos/${veiculo.id}`,
+      `${process.env.REACT_APP_API_URL}/veiculos/${veiculo.id}`,
       'PUT',
       veiculo
     ).then((r) => r.json());
@@ -19,20 +19,20 @@ const VeiculoService = {
 
   consultar(id) {
     return request(
-      `${process.env.REACT_APP_API_URL}/api/veiculos/${id}`,
+      `${process.env.REACT_APP_API_URL}/veiculos/${id}`,
       'GET'
     ).then((r) => r.json());
   },
 
   listar() {
-    return request(`${process.env.REACT_APP_API_URL}/api/veiculos`, 'GET').then(
+    return request(`${process.env.REACT_APP_API_URL}/veiculos`, 'GET').then(
       (r) => r.json()
     );
   },
 
   excluir(veiculo) {
     return request(
-      `${process.env.REACT_APP_API_URL}/api/veiculos/${veiculo.id}`,
+      `${process.env.REACT_APP_API_URL}/veiculos/${veiculo.id}`,
       'DELETE'
     ).then((r) => r.json());
   },

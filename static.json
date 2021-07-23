@@ -11,10 +11,5 @@
       "X-Frame-Options": "DENY",
       "X-XSS-Protection": "1; mode=block"
     }
-  },
-  "proxies": {
-    "/api/": {
-      "origin": "${REACT_APP_API_URL}"
-    }
   }
 }
