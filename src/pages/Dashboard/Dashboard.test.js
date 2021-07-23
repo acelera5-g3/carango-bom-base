@@ -2,20 +2,21 @@ import { act, render, screen } from '@testing-library/react';
 import Dashboard from '.';
 import DashboardService from '../../services/Dashboard/DashboardService';
 
-describe('Drawer', () => {
+describe('Dashboard', () => {
+
+  const createInstance = () => render(<Dashboard />);
+
   it('deve renderizar a Dashboard com sucesso', async () => {
-    await act(async () => {
-      render(<Dashboard />);
-    });
-    expect(screen.getByTestId('dashboard')).toBeInTheDocument();
+    const { container } = await createInstance();
+    expect(container).toBeDefined();
   });
 
   it('deve renderizar a mensagem quando nao ha marcas', async () => {
-    jest.spyOn(DashboardService, 'listar').mockClear().mockResolvedValue([]);
-    await act(async () => {
-      render(<Dashboard />);
+    jest.spyOn(DashboardService, 'listar').mockResolvedValue([]);
+    await act( async () => {
+      await createInstance();
     });
-    expect(screen.getByText('Não há marcas cadastradas')).toBeInTheDocument();
+    expect(screen.getByText(/Não há marcas cadastradas/i)).toBeInTheDocument();
   });
 
   it('deve renderizar as marcas na dashboard', async () => {
@@ -25,7 +26,7 @@ describe('Drawer', () => {
       .mockResolvedValue({
         content: [
           {
-            nomeMarca: 'PEUGEOUT',
+            nomeMarca: "PEUGEOUT",
             idMarca: 80,
             somatoria: 200000,
             quantidade: 0,
@@ -33,8 +34,8 @@ describe('Drawer', () => {
         ],
       });
     await act(async () => {
-      render(<Dashboard />);
+      await createInstance();
     });
-    expect(await screen.getByText('PEUGEOUT')).toBeInTheDocument();
+    expect(await screen.getByText(/PEUGEOUT/i)).toBeInTheDocument();
   });
 });

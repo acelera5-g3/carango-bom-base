@@ -1,4 +1,4 @@
-import request from '../Request/RequestService';
+import request from '../Request/Request';
 
 const AuthService = {
   login(user) {
@@ -6,6 +6,12 @@ const AuthService = {
       .then((r) => r.json())
       .catch((err) => err);
   },
+
+  validar(token) {
+    return request(`${process.env.REACT_APP_API_URL}/auth/validar`, 'POST', {token})
+    .then(() => true)
+    .catch(() => false);
+  }
 };
 
 export default AuthService;
