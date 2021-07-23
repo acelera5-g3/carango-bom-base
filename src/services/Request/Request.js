@@ -9,6 +9,7 @@ const request = (url, method, body) => {
   }
   return fetch(url, {
     method,
+    mode: 'cors',
     body: JSON.stringify(body),
     timeout: 5000,
     headers,
