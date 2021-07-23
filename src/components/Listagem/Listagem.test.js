@@ -1,26 +1,35 @@
-import { act, render, screen } from '@testing-library/react';
-import React from 'react';
+import {render} from '@testing-library/react';
 import Listagem from './Listagem';
 
 describe('Listagem', () => {
-  const createInstance = async (linhas, colunas, selectedSpy) => {
-    await act(async () => {
-      await render(
+  const createInstance = (linhas, colunas) => {
+    const { container, queryByText, findByText, getByText } = render(
         <Listagem
-          linhas={linhas || [{ id: 1, content: 'linha' }]}
-          colunas={colunas || [{ field: 'nome', headerName: 'Coluna' }]}
-          onRowSelected={selectedSpy}
+            linhas={linhas || [{ id: 1, field: 'linha' }]}
+            colunas={colunas || [{ field: 'id', headerName: 'ID' },
+              {
+                field: 'field',
+                headerName: 'Coluna'
+              }]}
         />
-      );
-    });
+    );
+    return { container, queryByText, findByText, getByText };
   };
 
   it('deve renderizar o componente com itens', async () => {
-    await createInstance(null, null);
-    expect(await screen.findByText('Coluna')).toBeInTheDocument();
+    const { getByText } = await createInstance(null, null);
+    expect(getByText(/linha/i)).toBeInTheDocument();
   });
+
   it('deve renderizar o componente sem itens', async () => {
-    await createInstance([], []);
-    expect(screen.queryByText('Coluna')).toBeNull();
+    const { getByText } = await createInstance([], []);
+    expect(getByText(/Não há itens/i)).toBeInTheDocument();
   });
+
+  // TODO: Isso não aumentou o coverage
+  /* it('deve selecionar uma coluna', async () => {
+    const { getByText } = await createInstance(null, null);
+    fireEvent.click(getByText(/linha/i));
+    expect(getByText(/selected/)).toBeInTheDocument();
+  }); */
 });

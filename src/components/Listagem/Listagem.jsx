@@ -27,6 +27,16 @@ function Listagem({
   excluir,
   loading,
 }) {
+  const useStyles = makeStyles(() => ({
+    actionsToolbar: {
+      float: 'right',
+    },
+    actions: {
+      top: '10px',
+      marginLeft: '10px',
+    },
+  }));
+
   const classes = useStyles();
   const [logado] = useContext(AuthContext);
 
@@ -79,7 +89,7 @@ function Listagem({
           </Button>
         </div>
       )}
-    </div>
+      </div>
   );
 }
 
