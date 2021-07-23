@@ -1,5 +1,11 @@
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, makeStyles, TextField, Typography } from '@material-ui/core';
+import {
+  Button,
+  makeStyles,
+  TextField,
+  Typography,
+  Box,
+} from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import useErros from '../../../hooks/useErros';
 import MarcaService from '../../../services/Marca/MarcaService';
@@ -9,8 +15,10 @@ const useStyles = makeStyles(() => ({
     fontSize: '2rem',
     paddingBottom: '20px',
   },
-  btnCancelar: {
-    marginRight: '10px',
+  boxBtns: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    marginTop: '1rem',
   },
 }));
 
@@ -84,26 +92,27 @@ function CadastroMarca() {
           margin="normal"
           data-testid="inputMarca"
         />
+        <Box className={classes.boxBtns}>
+          <Button
+            className={classes.btnCancelar}
+            variant="contained"
+            color="secondary"
+            data-testid="cancelarButton"
+            onClick={cancelar}
+          >
+            Cancelar
+          </Button>
 
-        <Button
-          className={classes.btnCancelar}
-          variant="contained"
-          color="secondary"
-          data-testid="cancelarButton"
-          onClick={cancelar}
-        >
-          Cancelar
-        </Button>
-
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          data-testid="submitButton"
-          disabled={!possoEnviar()}
-        >
-          {id ? 'Alterar' : 'Cadastrar'}
-        </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            data-testid="submitButton"
+            disabled={!possoEnviar()}
+          >
+            {id ? 'Alterar' : 'Cadastrar'}
+          </Button>
+        </Box>
       </form>
     </>
   );

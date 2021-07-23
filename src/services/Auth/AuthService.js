@@ -4,7 +4,7 @@ const AuthService = {
   login(user) {
     return request(`${process.env.REACT_APP_API_URL}/auth`, 'POST', user)
       .then((r) => r.json())
-      .catch((err) => err);
+      .catch((err) => console.log('error: ', err));
   },
 
   validar(token) {
