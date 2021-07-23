@@ -1,8 +1,7 @@
 import { Button, TextField, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../../../hooks/AuthContext';
 import useErros from '../../../hooks/useErros';
 import AuthService from '../../../services/Auth/AuthService';
 import { validarEmail, validarSenha } from '../validacoes';
@@ -11,7 +10,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [alert, setAlert] = useState(false);
-  const [, setLogado] = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -35,7 +33,6 @@ const Login = () => {
             .then((res) => {
               const { token } = res;
               localStorage.setItem('token', token);
-              setLogado(true);
               history.push('/dashboard');
             })
             .catch(() => {

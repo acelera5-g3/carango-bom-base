@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,7 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../../hooks/AuthContext';
+import { estaLogado } from '../../utils/auth';
 
 const drawerWidth = 240;
 
@@ -57,7 +57,7 @@ function MenuLateral(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [logado, setLogado] = useContext(AuthContext);
+  const logado = estaLogado();
   const history = useHistory();
 
   const dadosMenu = [
@@ -74,7 +74,6 @@ function MenuLateral(props) {
       url: '/login',
       callback: () => {
         localStorage.clear();
-        setLogado(false);
       },
     },
   ];

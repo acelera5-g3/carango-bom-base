@@ -1,11 +1,10 @@
 /* eslint-disable react/display-name */
 import { makeStyles, Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SemItens from './SemItens';
-
-import { AuthContext } from '../../hooks/AuthContext';
+import { estaLogado } from '../../utils/auth';
 
 const useStyles = makeStyles(() => ({
   actionsToolbar: {
@@ -28,7 +27,7 @@ function Listagem({
   loading,
 }) {
   const classes = useStyles();
-  const [logado] = useContext(AuthContext);
+  const logado = estaLogado();
 
   return (
     <div style={{ width: '100%' }} data-testid="data-grid">

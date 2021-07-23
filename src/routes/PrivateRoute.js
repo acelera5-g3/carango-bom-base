@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext } from '../hooks/AuthContext';
+import { estaLogado } from '../utils/auth';
 
 // eslint-disable-next-line react/prop-types
 export default function PrivateRoute({ component }) {
-  const [logado] = useContext(AuthContext);
+  const logado = estaLogado();
 
   if (logado) {
     return component;
