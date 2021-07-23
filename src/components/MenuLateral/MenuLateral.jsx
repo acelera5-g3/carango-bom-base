@@ -59,7 +59,7 @@ function MenuLateral(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const logado = estaLogado();
   const history = useHistory();
-  console.log(logado);
+
   const dadosMenu = [
     { texto: 'Entrar', url: '/login' },
     { texto: 'Veículos', url: '/veiculos' },

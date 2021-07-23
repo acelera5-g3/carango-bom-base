@@ -32,10 +32,8 @@ const Login = () => {
           })
             .then((res) => {
               const { token } = res;
-              if (token) {
-                localStorage.setItem('token', token);
-                history.push('/dashboard');
-              }
+              localStorage.setItem('token', token);
+              history.push('/dashboard');
             })
             .catch(() => {
               setAlert(true);

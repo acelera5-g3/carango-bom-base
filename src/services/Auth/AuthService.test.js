@@ -15,15 +15,13 @@ describe('AuthService', () => {
       expect(res.token).toBe('TOKENJWT');
     });
 
-    it('Deve Chamar a API de Login com erro', async () => {
-      jest.spyOn(global, 'fetch').mockRejectedValue({
-        status: 401,
-      });
-      const res = await AuthService.login({
+    it('Deve Chamar a API de Login com erro',  async () => {
+      jest.spyOn(global, 'fetch').mockImplementation(() => { throw new Error('error') });
+
+      expect(() => AuthService.login({
         email: 'teste@teste.com',
         senha: 'teste',
-      });
-      expect(res.status).toBe(401);
+      })).toThrow('error');
     });
   });
 });
