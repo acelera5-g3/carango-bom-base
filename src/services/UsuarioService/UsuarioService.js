@@ -3,7 +3,7 @@ import request from '../Request/Request';
 const UsuarioService = {
   cadastrar(usuario) {
     return request(
-      `${process.env.REACT_APP_API_URL}/apiusuarios/`,
+      `${process.env.REACT_APP_API_URL}/api/usuarios/`,
       'POST',
       usuario
     ).then((r) => r.json());
@@ -11,7 +11,7 @@ const UsuarioService = {
 
   alterar(usuario) {
     return request(
-      `${process.env.REACT_APP_API_URL}/apiusuarios/${usuario.id}`,
+      `${process.env.REACT_APP_API_URL}/api/usuarios/${usuario.id}`,
       'PUT',
       usuario
     ).then((r) => r.json());
@@ -19,20 +19,20 @@ const UsuarioService = {
 
   consultar(id) {
     return request(
-      `${process.env.REACT_APP_API_URL}/apiusuarios/${id}`,
+      `${process.env.REACT_APP_API_URL}/api/usuarios/${id}`,
       'GET'
     ).then((r) => r.json());
   },
 
   listar() {
-    return request(`${process.env.REACT_APP_API_URL}/apiusuarios`, 'GET').then(
+    return request(`${process.env.REACT_APP_API_URL}/api/usuarios`, 'GET').then(
       (r) => r.json()
     );
   },
 
   excluir(usuario) {
     return request(
-      `${process.env.REACT_APP_API_URL}/apiusuarios/${usuario.id}`,
+      `${process.env.REACT_APP_API_URL}/api/usuarios/${usuario.id}`,
       'DELETE'
     ).then((r) => r.json());
   },
