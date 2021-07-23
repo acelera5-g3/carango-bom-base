@@ -1,5 +1,10 @@
 const request = (url, method, body) => {
-  let headers = { 'Content-type': 'application/json' };
+  let headers = {
+    'Content-type': 'application/json',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Origin': '*',
+  };
   const token = localStorage.getItem('token');
   if (token) {
     headers = {
