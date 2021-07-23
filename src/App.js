@@ -3,7 +3,6 @@ import {Container, createTheme, CssBaseline, makeStyles} from '@material-ui/core
 import { ptBR } from '@material-ui/core/locale';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { Switch, BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './hooks/AuthContext';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
 import Routes from './routes/Routes.js';
@@ -37,7 +36,6 @@ function App() {
   const classes = useStyles();
 
   return (
-    <AuthProvider>
       <Router>
         <ThemeProvider theme={Theme}>
           <div className={classes.root}>
@@ -52,7 +50,6 @@ function App() {
           </div>
         </ThemeProvider>
       </Router>
-    </AuthProvider>
   );
 }
 

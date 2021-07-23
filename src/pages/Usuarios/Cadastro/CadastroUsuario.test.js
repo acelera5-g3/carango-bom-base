@@ -68,31 +68,38 @@ describe('Cadastro Usuario', () => {
       fireEvent.click(button);
     });
     expect(UsuarioService.cadastrar).toHaveBeenCalled();
+
     expect(pushSpy).toHaveBeenCalledWith('/usuarios');
   });
 
   it('Deve dar erro ao enviar o formulário na tela de Cadastro', async () => {
     jest.setTimeout(7000);
+
     jest.spyOn(UsuarioService, 'cadastrar').mockRejectedValue({
       status: 409,
     });
+
     await changeInput('inputEmail', 'teste@valido.com');
     await changeInput('inputSenha', 's3nh4v4l1d4#');
     await changeInput('inputConfirmacaoSenha', 's3nh4v4l1d4#');
+
     const button = screen.getByTestId('submitButton');
+
     await act(async () => {
       fireEvent.click(button);
     });
+
     expect(UsuarioService.cadastrar).toHaveBeenCalled();
+
     expect(
       await screen.getByText('Erro ao cadastrar o usuário!')
     ).toBeInTheDocument();
   });
 
-  it('Deve voltar para /usuarios ao clicar no botão de voltar na tela de Cadastro', async () => {
-    const button = screen.getByTestId('voltarButton');
-    fireEvent.click(button);
+  // it('Deve voltar para /usuarios ao clicar no botão de voltar na tela de Cadastro', async () => {
+  //   const button = screen.getByTestId('voltarButton');
+  //   fireEvent.click(button);
 
-    expect(pushSpy).toHaveBeenCalledWith('/usuarios');
-  });
+  //   expect(pushSpy).toHaveBeenCalledWith('/usuarios');
+  // });
 });

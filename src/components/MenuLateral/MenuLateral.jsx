@@ -59,7 +59,7 @@ function MenuLateral(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const logado = estaLogado();
   const history = useHistory();
-
+  console.log(logado);
   const dadosMenu = [
     { texto: 'Entrar', url: '/login' },
     { texto: 'Veículos', url: '/veiculos' },
@@ -83,30 +83,22 @@ function MenuLateral(props) {
   };
 
   const Item = (item, index) => (
-      <ListItem
-          button
-          key={item.texto}
-          onClick={() => history.push(item.url)}
-      >
-        <ListItemIcon>
-          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-        </ListItemIcon>
-        <ListItemText primary={item.texto} />
-      </ListItem>
+    <ListItem button key={item.texto} onClick={() => history.push(item.url)}>
+      <ListItemIcon>
+        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+      </ListItemIcon>
+      <ListItemText primary={item.texto} />
+    </ListItem>
   );
 
   const drawer = (
     <div>
-      <List>
-        {dadosMenu.map((item, index) => Item(item, index))}
-      </List>
+      <List>{dadosMenu.map((item, index) => Item(item, index))}</List>
       {logado && (
-          <>
-            <Divider />
-            <List>
-              {dadosMenuLogado.map((item, index) => Item(item, index))}
-            </List>
-          </>
+        <>
+          <Divider />
+          <List>{dadosMenuLogado.map((item, index) => Item(item, index))}</List>
+        </>
       )}
     </div>
   );

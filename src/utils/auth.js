@@ -1,11 +1,7 @@
-import AuthService from "../services/Auth/AuthService";
-
-const estaLogado = async () => {
+const estaLogado = () => {
   const token = localStorage.getItem("token");
 
-  const resposta = await AuthService.validar(token);
-
-  if(resposta) {
+  if(token) {
     return true;
   }
 
