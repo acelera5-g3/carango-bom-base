@@ -7,6 +7,9 @@ const request = (url, method, body) => {
       Authorization: `Bearer ${token}`,
     };
   }
+  console.log(url);
+  console.log(body);
+  console.log(headers);
   return fetch(url, {
     method,
     body: JSON.stringify(body),
