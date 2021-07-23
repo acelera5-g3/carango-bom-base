@@ -1,6 +1,6 @@
 const request = (url, method, body) => {
   let headers = {
-    'Content-type': 'application/json',
+    'Content-Type': 'application/json',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'GET',
     'Access-Control-Allow-Origin': '*',
