@@ -1,4 +1,10 @@
-import { Button, TextField, Snackbar } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  Snackbar,
+  Box,
+  makeStyles,
+} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -6,12 +12,25 @@ import useErros from '../../../hooks/useErros';
 import AuthService from '../../../services/Auth/AuthService';
 import { validarEmail, validarSenha } from '../validacoes';
 
+const useStyles = makeStyles(() => ({
+  title: {
+    fontSize: '2rem',
+    paddingBottom: '20px',
+  },
+  boxBtns: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '1rem',
+  },
+}));
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [alert, setAlert] = useState(false);
 
   const history = useHistory();
+  const classes = useStyles();
 
   const validacoes = {
     email: (dado) => validarEmail(dado),
@@ -73,17 +92,26 @@ const Login = () => {
         margin="normal"
         data-testid="inputSenha"
       />
-
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        data-testid="submitButton"
-        disabled={!possoEnviar()}
-      >
-        Entrar
-      </Button>
-
+      <Box className={classes.boxBtns}>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          data-testid="submitButton"
+          disabled={!possoEnviar()}
+        >
+          Entrar
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          data-testid="cadastroButton"
+          disabled={!possoEnviar()}
+          onClick={() => history.push('/cadastro-usuario')}
+        >
+          Cadastrar-se
+        </Button>
+      </Box>
       <Snackbar
         data-testeid="snackbar"
         open={alert}
