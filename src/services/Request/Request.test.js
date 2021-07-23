@@ -1,4 +1,4 @@
-import request from './RequestService';
+import request from './Request';
 
 describe('Request service', () => {
     beforeEach(() => {

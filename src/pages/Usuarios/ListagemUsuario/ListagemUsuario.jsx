@@ -34,7 +34,7 @@ const ListagemUsuario = () => {
   function carregarUsuarios() {
     UsuarioService.listar()
       .then((dados) => setUsuarios(dados.content))
-      .catch(() => setUsuarios([]));
+      .catch(() => setUsuarios([]))
       .finally(() => setLoading(false));
   }
 

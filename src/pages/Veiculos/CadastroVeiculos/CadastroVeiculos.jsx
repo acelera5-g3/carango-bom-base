@@ -46,8 +46,8 @@ const CadastroVeiculos = () => {
     MarcaService.listar().then((values) => {
       setMarcas(values.content);
       if (id) {
-        VeiculoService.consultar(id).then((veiculo) => {
-          setVeiculo({ ...veiculo });
+        VeiculoService.consultar(id).then((data) => {
+          setVeiculo({ ...data });
         });
       }
     });

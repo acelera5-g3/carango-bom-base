@@ -1,14 +1,14 @@
 import React from 'react';
-import { Container, CssBaseline, makeStyles } from '@material-ui/core';
+import {Container, createTheme, CssBaseline, makeStyles} from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { Switch, BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './hooks/AuthContext';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
 import Routes from './routes/Routes.js';
 
-const muiTheme = createMuiTheme(
+const Theme = createTheme(
   {
     palette: {
       primary: {
@@ -39,7 +39,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <ThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={Theme}>
           <div className={classes.root}>
             <CssBaseline />
             <MenuLateral className={classes.content}>
