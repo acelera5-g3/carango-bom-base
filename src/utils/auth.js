@@ -2,10 +2,11 @@ const estaLogado = () => {
   const token = localStorage.getItem("token");
 
   if(token) {
-    return true
+    return true;
   }
-  
-  return false
+
+  localStorage.clear();
+  return false;
 }
 
 export { estaLogado }

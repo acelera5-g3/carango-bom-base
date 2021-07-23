@@ -17,6 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import { estaLogado } from '../../utils/auth';
 
 const drawerWidth = 240;
 
@@ -56,6 +57,7 @@ function MenuLateral(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const logado = estaLogado();
   const history = useHistory();
 
   const dadosMenu = [
@@ -67,7 +69,13 @@ function MenuLateral(props) {
   const dadosMenuLogado = [
     { texto: 'Usuários', url: '/usuarios' },
     { texto: 'Dashboard', url: '/dashboard' },
-    { texto: 'Sair', url: '/login' },
+    {
+      texto: 'Sair',
+      url: '/login',
+      callback: () => {
+        localStorage.clear();
+      },
+    },
   ];
 
   const handleDrawerToggle = () => {
@@ -75,27 +83,23 @@ function MenuLateral(props) {
   };
 
   const Item = (item, index) => (
-      <ListItem
-          button
-          key={item.texto}
-          onClick={() => history.push(item.url)}
-      >
-        <ListItemIcon>
-          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-        </ListItemIcon>
-        <ListItemText primary={item.texto} />
-      </ListItem>
+    <ListItem button key={item.texto} onClick={() => history.push(item.url)}>
+      <ListItemIcon>
+        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+      </ListItemIcon>
+      <ListItemText primary={item.texto} />
+    </ListItem>
   );
 
   const drawer = (
     <div>
-      <List>
-        {dadosMenu.map((item, index) => Item(item, index))}
-      </List>
-      <Divider />
-      <List>
-        {dadosMenuLogado.map((item, index) => Item(item, index))}
-      </List>
+      <List>{dadosMenu.map((item, index) => Item(item, index))}</List>
+      {logado && (
+        <>
+          <Divider />
+          <List>{dadosMenuLogado.map((item, index) => Item(item, index))}</List>
+        </>
+      )}
     </div>
   );
 

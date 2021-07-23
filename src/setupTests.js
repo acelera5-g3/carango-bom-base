@@ -27,3 +27,4 @@ class LocalStorageMock {
 }
 
 global.localStorage = new LocalStorageMock();
+localStorage.setItem('token', 'chave');

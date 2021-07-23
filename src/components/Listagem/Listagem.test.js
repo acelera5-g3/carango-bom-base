@@ -25,11 +25,4 @@ describe('Listagem', () => {
     const { getByText } = await createInstance([], []);
     expect(getByText(/Não há itens/i)).toBeInTheDocument();
   });
-
-  // TODO: Isso não aumentou o coverage
-  /* it('deve selecionar uma coluna', async () => {
-    const { getByText } = await createInstance(null, null);
-    fireEvent.click(getByText(/linha/i));
-    expect(getByText(/selected/)).toBeInTheDocument();
-  }); */
 });
