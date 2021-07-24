@@ -3,7 +3,7 @@ import request from '../Request/Request';
 const UsuarioService = {
   cadastrar(usuario) {
     return request(
-      `${process.env.REACT_APP_API_URL}/usuarios/`,
+      `${process.env.REACT_APP_API_URL}/usuarios`,
       'POST',
       usuario
     ).then((r) => r.json());
