@@ -8,8 +8,7 @@ WORKDIR /web
 
 # Copy the package.json as well as the package-lock.json and install
 # the dependencies. This is a separate step so the dependencies
-# will be cached unless changes to one of those two files
-# are made.
+# will be cached unless changes to one of those two files are made.
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -23,18 +22,14 @@ ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
 # Build the application
 RUN npm run build
 
-#### Stage 2: Serve the React application from Nginx
-FROM nginx:stable-alpine
+#### Stage 2: Serve the React application from node serve
+FROM node:slim
 
 # Copy the react build from Stage 1
-COPY --from=build /web/build /var/www
+COPY --from=build /web/build /var/www/dist
 
-# Copy our custom nginx config
-# Copy our custom nginx config
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+RUN npm install -g serve
 
-# Expose port 80 to the Docker host, so we can access it
-# from the outside.
-EXPOSE 80
+EXPOSE $PORT
 
-ENTRYPOINT ["nginx","-g","daemon off;"]
+CMD serve -p $PORT -s /var/www/dist

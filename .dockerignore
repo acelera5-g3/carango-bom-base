@@ -1,1 +1,12 @@
+/.git/
+/dist/
 /node_modules/
+/coverage/
+/.github/
+/.vscode/
+/.idea/
+
+Dockerfile
+.dockerignore
+.gitignore
+README.md
