@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Login = () => {
-  const [, setTempermission] = useContext(SectionContext);
+  const [_, setTempermission] = useContext(SectionContext);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [alert, setAlert] = useState(false);

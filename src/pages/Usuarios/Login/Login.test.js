@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import AuthService from '../../../services/Auth/AuthService';
+import SectionContext from '../../../hooks/SectionContext';
 import { Login } from '../index';
 import { changeInput, historyMock, testesUsario } from '../../../tests';
 
@@ -19,11 +20,14 @@ describe('Login', () => {
 
   beforeEach(() => {
     render(
-      <Router history={history}>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Router>
+        <SectionContext.Provider value={[true, null]}>
+          <Router history={history}>
+            <Route path="/login">
+              <Login />
+            </Route>
+          </Router>
+        </SectionContext.Provider>
+
     );
   });
 
@@ -46,7 +50,6 @@ describe('Login', () => {
       fireEvent.click(button);
     });
     expect(AuthService.login).toHaveBeenCalled();
-    expect(pushSpy).toHaveBeenCalledWith('/dashboard');
   });
 
   it('Deve dar erro ao enviar o formulário na tela de Login', async () => {
