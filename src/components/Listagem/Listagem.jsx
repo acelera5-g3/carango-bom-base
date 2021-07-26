@@ -36,7 +36,7 @@ function Listagem({
         autoHeight={true}
         rows={linhas}
         columns={colunas}
-        onRowSelected={(gridSelection) => onRowSelected(gridSelection.data)}
+        onCellClick={(cell) => onRowSelected(cell.row)}
         pageSize={5}
         rowsPerPageOptions={[5, 10, 20]}
         components={{
