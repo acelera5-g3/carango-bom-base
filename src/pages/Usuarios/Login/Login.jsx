@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Login = () => {
-  const [setTempermission] = useContext(SectionContext);
+  const [, setTempermission] = useContext(SectionContext);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [alert, setAlert] = useState(false);
@@ -54,8 +54,11 @@ const Login = () => {
             .then((res) => {
               const { token } = res;
               localStorage.setItem('token', token);
-              setTempermission(true);
-              history.push('/dashboard');
+
+              if (token) {
+                setTempermission(true);
+                history.push('/dashboard');
+              }
             })
             .catch(() => {
               setAlert(true);

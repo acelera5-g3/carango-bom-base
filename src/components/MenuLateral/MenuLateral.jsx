@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MenuLateral(props) {
-  const [temPermissoes] = useContext(SectionContext);
+  const [temPermissoes, setTemPermissoes] = useContext(SectionContext);
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -82,6 +82,7 @@ function MenuLateral(props) {
       icon: <ExitToAppIcon />,
       callback: () => {
         localStorage.clear();
+        setTemPermissoes(false);
       },
     },
   ];
@@ -106,7 +107,14 @@ function MenuLateral(props) {
 
   const drawer = (
     <div>
-      <List>{dadosMenu.map((item, index) => Item(item, index))}</List>
+      <List>
+        {dadosMenu.map((item, index) => {
+          if (item.texto === 'Entrar' && temPermissoes) {
+            return null;
+          }
+          return Item(item, index);
+        })}
+      </List>
       {temPermissoes && (
         <>
           <Divider />
