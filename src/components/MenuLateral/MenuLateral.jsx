@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  header: {
+    fontSize: `min(3vw, 22px)`,
+  },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
@@ -66,12 +69,12 @@ function MenuLateral(props) {
 
   const dadosMenu = [
     { texto: 'Entrar', url: '/login', icon: <VpnKeyIcon /> },
-    { texto: 'Veículos', url: '/veiculos', icon: <DriveEtaIcon />  },
+    { texto: 'Veículos', url: '/veiculos', icon: <DriveEtaIcon /> },
     { texto: 'Marcas', url: '/', icon: <LocalOfferIcon /> },
   ];
 
   const dadosMenuLogado = [
-    { texto: 'Usuários', url: '/usuarios', icon: <GroupIcon />  },
+    { texto: 'Usuários', url: '/usuarios', icon: <GroupIcon /> },
     { texto: 'Dashboard', url: '/dashboard', icon: <DashboardIcon /> },
     {
       texto: 'Sair',
@@ -88,13 +91,15 @@ function MenuLateral(props) {
   };
 
   const Item = (item, index) => (
-    <ListItem button key={index} onClick={() => {
-      (item?.callback) ? item.callback() : null;
-      history.push(item.url);
-    }}>
-      <ListItemIcon>
-        {item.icon}
-      </ListItemIcon>
+    <ListItem
+      button
+      key={index}
+      onClick={() => {
+        item?.callback ? item.callback() : null;
+        history.push(item.url);
+      }}
+    >
+      <ListItemIcon>{item.icon}</ListItemIcon>
       <ListItemText primary={item.texto} />
     </ListItem>
   );
@@ -126,7 +131,7 @@ function MenuLateral(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5" noWrap>
+          <Typography variant="h5" noWrap className={classes.header}>
             MEU CARANGO BOM
           </Typography>
         </Toolbar>
