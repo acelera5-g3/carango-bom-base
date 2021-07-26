@@ -10,7 +10,7 @@ describe('ListagemMarcas', () => {
 
     const createInstance = () => render(
         <Router history={history}>
-            <ListagemMarcas />
+            <ListagemMarcas/>
         </Router>);
 
     beforeEach(() => {
@@ -25,54 +25,60 @@ describe('ListagemMarcas', () => {
     });
 
     it('Deve instanciar o componente com marcas', async () => {
-        await act( async () => {
+        await act(async () => {
             await createInstance();
         });
-      expect(await screen.findByText(/CHEVROLET/i)).toBeInTheDocument();
+        expect(await screen.findByText(/CHEVROLET/i)).toBeInTheDocument();
     });
 
-     /* it('Deve alterar uma marca', async () => {
+    it('Deve alterar uma marca', async () => {
 
-      await createInstance();
-      fireEvent.click(await screen.findByText(/FIAT/i));
-      fireEvent.click(screen.getByTestId('botao-alterar'));
+        await act(async () => {
+            await createInstance();
+            fireEvent.click(await screen.findByText(/FIAT/i));
+            fireEvent.click(screen.getByTestId('botao-alterar'));
+        });
 
-      expect(history.location.pathname).toBe('/alteracao-marca/2');
-    }); */
+        expect(history.location.pathname).toBe('/alteracao-marca/2');
+    });
 
-    // it('Deve excluir uma marca', async () => {
-    //   jest
-    //     .spyOn(MarcaService, 'excluir')
-    //     .mockResolvedValue({ id: 2, nome: 'TEST 2' });
-    //   jest
-    //     .spyOn(MarcaService, 'listar')
-    //     .mockClear()
-    //     .mockResolvedValueOnce({
-    //       content: [
-    //         { id: 1, nome: 'CHEVROLET' },
-    //         { id: 2, nome: 'FIAT' },
-    //       ],
-    //     })
-    //     .mockResolvedValue({ content: [{ id: 1, nome: 'CHEVROLET' }] });
+    it('Deve excluir uma marca', async () => {
+        jest
+            .spyOn(MarcaService, 'excluir')
+            .mockResolvedValue({id: 2, nome: 'TEST 2'});
+        jest
+            .spyOn(MarcaService, 'listar')
+            .mockClear()
+            .mockResolvedValueOnce({
+                content: [
+                    {id: 1, nome: 'CHEVROLET'},
+                    {id: 2, nome: 'FIAT'},
+                ],
+            })
+            .mockResolvedValue({content: [{id: 1, nome: 'CHEVROLET'}]});
 
-    //   render(<ListagemMarcas />);
+        await act(async () => {
+            await createInstance();
 
-    //   const fiatText = await screen.findByText('FIAT');
-    //   const botaoExcluir = screen.getByTestId('botao-excluir');
+            const fiatText = await screen.findByText('FIAT');
+            const botaoExcluir = screen.getByTestId('botao-excluir');
 
-    //   fireEvent.click(fiatText);
-    //   fireEvent.click(botaoExcluir);
+            fireEvent.click(fiatText);
+            fireEvent.click(botaoExcluir);
+        });
 
-    //   expect(await screen.findByText('FIAT')).not.toBeInTheDocument();
-    // });
+        expect(await screen.queryByText(/FIAT/i)).not.toBeInTheDocument();
+    });
 
     it('Deve cadastrar uma marca', async () => {
         const history = createMemoryHistory();
-        const { getByTestId } = render(
-        <Router history={history}>
-          <ListagemMarcas />
-        </Router>);
-        fireEvent.click(getByTestId('botao-incluir'));
+        await act(async () => {
+            const {getByTestId} = render(
+                <Router history={history}>
+                    <ListagemMarcas/>
+                </Router>);
+            fireEvent.click(getByTestId('botao-incluir'));
+        });
         expect(history.location.pathname).toBe('/cadastro-marca');
     });
 });

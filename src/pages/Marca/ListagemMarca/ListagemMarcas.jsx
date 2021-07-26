@@ -32,8 +32,6 @@ const ListagemMarcas = () => {
     // eslint-disable-next-line
     useEffect(() => carregarMarcas(), []);
 
-    useEffect(() => console.log(marcaSelecionada), [marcaSelecionada]);
-
     function carregarMarcas() {
         MarcaService.listar()
             .then((dados) => {
