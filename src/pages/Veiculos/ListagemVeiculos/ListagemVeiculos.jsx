@@ -7,7 +7,18 @@ const colunas = [
   { field: 'marca', headerName: 'Marca', width: 200 },
   { field: 'modelo', headerName: 'Modelo', width: 200 },
   { field: 'ano', headerName: 'Ano', width: 200 },
-  { field: 'valor', headerName: 'Valor', width: 200 },
+  {
+    field: 'valor',
+    headerName: 'Valor',
+    width: 200,
+    valueFormatter: (params) => {
+      const valueFormatted = Number(params.value).toLocaleString('pt-br', {
+        style: 'currency',
+        currency: 'BRL',
+      });
+      return valueFormatted;
+    },
+  },
 ];
 
 const ListagemVeiculos = () => {

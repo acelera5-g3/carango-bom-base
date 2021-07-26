@@ -7,12 +7,13 @@ describe('Dashboard', () => {
   const createInstance = () => render(<Dashboard />);
 
   it('deve renderizar a Dashboard com sucesso', async () => {
+    jest.spyOn(DashboardService, 'listar').mockResolvedValue({content: []});
     const { container } = await createInstance();
     expect(container).toBeDefined();
   });
 
   it('deve renderizar a mensagem quando nao ha marcas', async () => {
-    jest.spyOn(DashboardService, 'listar').mockResolvedValue([]);
+    jest.spyOn(DashboardService, 'listar').mockResolvedValue({content: []});
     await act( async () => {
       await createInstance();
     });
