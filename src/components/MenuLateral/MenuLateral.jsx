@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,7 +21,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { estaLogado } from '../../utils/auth';
+import SectionContext from '../../hooks/SectionContext';
 
 const drawerWidth = 240;
 
@@ -61,10 +61,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MenuLateral(props) {
+  const [temPermissoes, setTemPermissoes] = useContext(SectionContext);
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const logado = estaLogado();
   const history = useHistory();
 
   const dadosMenu = [
@@ -82,6 +82,7 @@ function MenuLateral(props) {
       icon: <ExitToAppIcon />,
       callback: () => {
         localStorage.clear();
+        setTemPermissoes(false);
       },
     },
   ];
@@ -106,8 +107,15 @@ function MenuLateral(props) {
 
   const drawer = (
     <div>
-      <List>{dadosMenu.map((item, index) => Item(item, index))}</List>
-      {logado && (
+      <List>
+        {dadosMenu.map((item, index) => {
+          if (item.texto === 'Entrar' && temPermissoes) {
+            return null;
+          }
+          return Item(item, index);
+        })}
+      </List>
+      {temPermissoes && (
         <>
           <Divider />
           <List>{dadosMenuLogado.map((item, index) => Item(item, index))}</List>

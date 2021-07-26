@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Container, createTheme, CssBaseline, makeStyles} from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -6,6 +6,7 @@ import { Switch, BrowserRouter as Router } from 'react-router-dom';
 import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
 import Routes from './routes/Routes.js';
+import SectionContext from './hooks/SectionContext';
 
 const Theme = createTheme(
   {
@@ -35,7 +36,19 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
+  const [temPermissoes, setTemPermissoes] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if(token) {
+      setTemPermissoes(true);
+    }
+    
+  }, [])
+
   return (
+    <SectionContext.Provider value={[temPermissoes, setTemPermissoes]}>
       <Router>
         <ThemeProvider theme={Theme}>
           <div className={classes.root}>
@@ -50,6 +63,7 @@ function App() {
           </div>
         </ThemeProvider>
       </Router>
+    </SectionContext.Provider>
   );
 }
 

@@ -6,11 +6,12 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useErros from '../../../hooks/useErros';
 import AuthService from '../../../services/Auth/AuthService';
 import { validarEmail, validarSenha } from '../validacoes';
+import SectionContext from '../../../hooks/SectionContext';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Login = () => {
+  const [_, setTempermission] = useContext(SectionContext);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [alert, setAlert] = useState(false);
@@ -52,7 +54,11 @@ const Login = () => {
             .then((res) => {
               const { token } = res;
               localStorage.setItem('token', token);
-              history.push('/dashboard');
+
+              if (token) {
+                setTempermission(true);
+                history.push('/dashboard');
+              }
             })
             .catch(() => {
               setAlert(true);
