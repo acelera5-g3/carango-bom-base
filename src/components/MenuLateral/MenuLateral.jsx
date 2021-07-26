@@ -6,13 +6,17 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import MenuIcon from '@material-ui/icons/Menu';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import GroupIcon from '@material-ui/icons/Group';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -61,17 +65,18 @@ function MenuLateral(props) {
   const history = useHistory();
 
   const dadosMenu = [
-    { texto: 'Entrar', url: '/login' },
-    { texto: 'Veículos', url: '/veiculos' },
-    { texto: 'Marcas', url: '/' },
+    { texto: 'Entrar', url: '/login', icon: <VpnKeyIcon /> },
+    { texto: 'Veículos', url: '/veiculos', icon: <DriveEtaIcon />  },
+    { texto: 'Marcas', url: '/', icon: <LocalOfferIcon /> },
   ];
 
   const dadosMenuLogado = [
-    { texto: 'Usuários', url: '/usuarios' },
-    { texto: 'Dashboard', url: '/dashboard' },
+    { texto: 'Usuários', url: '/usuarios', icon: <GroupIcon />  },
+    { texto: 'Dashboard', url: '/dashboard', icon: <DashboardIcon /> },
     {
       texto: 'Sair',
       url: '/login',
+      icon: <ExitToAppIcon />,
       callback: () => {
         localStorage.clear();
       },
@@ -83,9 +88,12 @@ function MenuLateral(props) {
   };
 
   const Item = (item, index) => (
-    <ListItem button key={item.texto} onClick={() => history.push(item.url)}>
+    <ListItem button key={index} onClick={() => {
+      (item?.callback) ? item.callback() : null;
+      history.push(item.url);
+    }}>
       <ListItemIcon>
-        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+        {item.icon}
       </ListItemIcon>
       <ListItemText primary={item.texto} />
     </ListItem>
