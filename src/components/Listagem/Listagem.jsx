@@ -14,6 +14,16 @@ const useStyles = makeStyles(() => ({
     top: '10px',
     marginLeft: '10px',
   },
+  [`@media (max-width: 768px)`]: {
+    actionsToolbar: {
+      width: '100%',
+    },
+    actions: {
+      width: '100%',
+      marginLeft: '0px',
+      marginTop: '10px',
+    },
+  },
 }));
 
 function Listagem({
