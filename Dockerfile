@@ -16,8 +16,8 @@ RUN npm ci
 COPY . ./
 
 # Arguments
-ARG REACT_APP_API_BASE_URL
-ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
+ARG API_BASE
+ENV API_BASE=${API_BASE}
 
 # Build the application
 RUN npm run build
@@ -30,6 +30,9 @@ COPY --from=build /web/build /var/www/dist
 
 RUN npm install -g serve
 
-EXPOSE $PORT
+ARG PORT
+ENV PORT=${PORT}
 
-CMD serve -p $PORT -s /var/www/dist
+EXPOSE ${PORT}
+
+CMD serve -p ${PORT} -s /var/www/dist
