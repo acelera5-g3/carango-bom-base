@@ -16,6 +16,7 @@ RUN npm ci
 COPY . ./
 
 # Arguments
+ARG NODE_ENV=${NODE_ENV}
 ARG API_BASE
 ENV API_BASE=${API_BASE}
 
