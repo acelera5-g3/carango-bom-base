@@ -21,6 +21,7 @@ export default function Dashboard() {
         minWidth: '100%',
       },
     },
+    
   });
 
   const [listaDashboard, setListaDashboard] = useState([]);
