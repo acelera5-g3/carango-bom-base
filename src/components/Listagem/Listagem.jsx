@@ -87,6 +87,16 @@ function Listagem({
           >
             Excluir
           </Button>
+          <Button
+            className={classes.actions}
+            variant="contained"
+            color="secondary"
+            disabled={!rowSelected}
+            data-testid="botao-excluir"
+            onClick={excluir}
+          >
+            Atualizar
+          </Button>
         </div>
       )}
     </div>
