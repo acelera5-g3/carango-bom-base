@@ -23,6 +23,18 @@
       "id": 80,
       "valorTotal": "R$ 0,00",
       "quantidade": 0
+    },
+    {
+      "nome": "AUDI",
+      "id": 79,
+      "valorTotal": "R$ 333.000.000",
+      "quantidade": 1
+    },
+    {
+      "nome": "YAMAHA",
+      "id": 80,
+      "valorTotal": "R$ 0,00",
+      "quantidade": 0
     }
   ],
   "usuarios": [
