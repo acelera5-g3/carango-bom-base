@@ -12,6 +12,7 @@ describe('Dashboard', () => {
     expect(container).toBeDefined();
   });
 
+
   it('deve renderizar a mensagem quando nao ha marcas', async () => {
     jest.spyOn(DashboardService, 'listar').mockResolvedValue({content: []});
     await act( async () => {
@@ -20,6 +21,7 @@ describe('Dashboard', () => {
     expect(screen.getByText(/Não há marcas cadastradas/i)).toBeInTheDocument();
   });
 
+  
   it('deve renderizar as marcas na dashboard', async () => {
     jest
       .spyOn(DashboardService, 'listar')
